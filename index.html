@@ -56,36 +56,37 @@
       font-size: 0.85rem;
     }
 
-    /* 4-Column Compact Grid */
-    .compact-grid {
+    /* 3 tadan 3 qator grid (3x3) */
+    .store-grid {
       display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
+      grid-template-columns: repeat(3, 1fr) !important;
       gap: 0.8rem !important;
       padding: 1rem 1.2rem !important;
-      max-width: 1200px !important;
+      max-width: 900px !important;
       margin: 0 auto !important;
       width: 100% !important;
     }
 
-    .compact-card {
+    /* Ixcham kvadrat kardlar */
+    .product-card {
       background: white !important;
       border-radius: 8px !important;
       overflow: hidden !important;
       box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
       display: flex !important;
       flex-direction: column !important;
-      height: 240px !important;
+      height: 230px !important;
       position: relative !important;
       border: 1px solid #e1e8ed !important;
     }
 
-    .compact-card.hidden {
+    .product-card.hidden {
       display: none !important;
     }
 
-    .compact-card img {
+    .product-card img {
       width: 100% !important;
-      height: 130px !important;
+      height: 125px !important;
       object-fit: contain !important;
       background-color: #f8f9fa !important;
       padding: 6px !important;
@@ -117,11 +118,11 @@
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      height: 110px !important;
+      height: 105px !important;
     }
 
-    .card h3 {
-      font-size: 0.82rem !important;
+    .card-body h3 {
+      font-size: 0.85rem !important;
       font-weight: 600 !important;
       line-height: 1.1 !important;
     }
@@ -129,7 +130,7 @@
     .card-price {
       font-weight: bold !important;
       color: #ff4757 !important;
-      font-size: 0.82rem !important;
+      font-size: 0.85rem !important;
     }
 
     .add-btn {
@@ -214,8 +215,9 @@
     <button class="cart-btn" id="cartBtn">Savat (0)</button>
   </header>
 
-  <main class="compact-grid">
-    <div class="compact-card" data-id="1" data-name="orange podstavka">
+  <main class="store-grid">
+    <!-- Qator 1 -->
+    <div class="product-card" data-id="1" data-name="orange podstavka">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
       <div class="card-body">
@@ -225,7 +227,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="2" data-name="tree">
+    <div class="product-card" data-id="2" data-name="tree">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/tree.jpg" alt="Tree">
       <div class="card-body">
@@ -235,7 +237,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="3" data-name="haykalcha">
+    <div class="product-card" data-id="3" data-name="haykalcha">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
       <div class="card-body">
@@ -245,7 +247,8 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="4" data-name="stol">
+    <!-- Qator 2 -->
+    <div class="product-card" data-id="4" data-name="stol">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/stol.jpg" alt="Stol">
       <div class="card-body">
@@ -255,7 +258,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="5" data-name="podstavka">
+    <div class="product-card" data-id="5" data-name="podstavka">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/podstavka.jpg" alt="Podstavka">
       <div class="card-body">
@@ -265,7 +268,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="6" data-name="kema 2">
+    <div class="product-card" data-id="6" data-name="kema 2">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/kema2.jpg" alt="Kema 2">
       <div class="card-body">
@@ -275,7 +278,8 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="7" data-name="card">
+    <!-- Qator 3 -->
+    <div class="product-card" data-id="7" data-name="card">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/Card.jpg" alt="Card">
       <div class="card-body">
@@ -285,7 +289,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="8" data-name="kema">
+    <div class="product-card" data-id="8" data-name="kema">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/Kema.jpg" alt="Kema">
       <div class="card-body">
@@ -295,7 +299,7 @@
       </div>
     </div>
 
-    <div class="compact-card" data-id="9" data-name="qr code">
+    <div class="product-card" data-id="9" data-name="qr code">
       <span class="stock-badge in-stock">In Stock</span>
       <img src="3D_Products/Qr.jpg" alt="QR Code">
       <div class="card-body">
@@ -336,7 +340,7 @@
 
   <script>
     let cart = [];
-    const cards = document.querySelectorAll('.compact-card');
+    const cards = document.querySelectorAll('.product-card');
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
@@ -347,7 +351,7 @@
 
     document.querySelectorAll('.add-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const card = e.target.closest('.compact-card');
+        const card = e.target.closest('.product-card');
         const id = card.getAttribute('data-id');
         const name = card.querySelector('h3').textContent;
         const priceElement = card.querySelector('.card-price');
@@ -392,7 +396,7 @@
 
     function removeFromCart(idx) {
       const item = cart[idx];
-      const card = document.querySelector(`.compact-card[data-id="${item.id}"]`);
+      const card = document.querySelector(`.product-card[data-id="${item.id}"]`);
       if (card) {
         const badge = card.querySelector('.stock-badge');
         badge.textContent = 'In Stock';
