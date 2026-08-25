@@ -25,59 +25,82 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.4rem 1.5rem;
+      padding: 0.5rem 2rem;
       background: #111;
       color: #fff;
-      height: 50px;
+      height: 60px;
     }
 
     .logo-img {
-      height: 28px;
+      height: 35px;
       object-fit: contain;
     }
 
     .search-box input {
-      padding: 0.35rem 0.8rem;
-      border-radius: 18px;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
       border: none;
-      width: 220px;
+      width: 280px;
       outline: none;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
     }
 
     .cart-btn {
       background: #ff4757;
       color: white;
       border: none;
-      padding: 0.35rem 1rem;
-      border-radius: 18px;
+      padding: 0.45rem 1.2rem;
+      border-radius: 20px;
       cursor: pointer;
       font-weight: bold;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
     }
 
-    /* 3 tadan 3 qator grid (3x3) */
-    .store-grid {
+    /* Asosiy konteyner */
+    .store-container {
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* 1-qator: 5 ta mahsulot */
+    .row-5 {
       display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
-      gap: 0.8rem !important;
-      padding: 1rem 1.2rem !important;
-      max-width: 900px !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 1.2rem !important;
+    }
+
+    /* 2-qator: 4 ta mahsulot */
+    .row-4 {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 1.2rem !important;
+      max-width: 1120px !important; /* Markazroq turishi uchun */
       margin: 0 auto !important;
       width: 100% !important;
     }
 
-    /* Ixcham kvadrat kardlar */
+    /* Kattaroq va chiroyli kardlar */
     .product-card {
       background: white !important;
-      border-radius: 8px !important;
+      border-radius: 12px !important;
       overflow: hidden !important;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
       display: flex !important;
       flex-direction: column !important;
-      height: 230px !important;
+      height: 310px !important;
       position: relative !important;
       border: 1px solid #e1e8ed !important;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1) !important;
     }
 
     .product-card.hidden {
@@ -86,21 +109,22 @@
 
     .product-card img {
       width: 100% !important;
-      height: 125px !important;
+      height: 180px !important;
       object-fit: contain !important;
       background-color: #f8f9fa !important;
-      padding: 6px !important;
+      padding: 10px !important;
     }
 
     .stock-badge {
       position: absolute;
-      top: 6px;
-      right: 6px;
-      padding: 0.15rem 0.4rem;
-      border-radius: 10px;
-      font-size: 0.65rem;
+      top: 10px;
+      right: 10px;
+      padding: 0.25rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
       font-weight: bold;
       text-transform: uppercase;
+      z-index: 2;
     }
 
     .stock-badge.in-stock {
@@ -114,34 +138,40 @@
     }
 
     .card-body {
-      padding: 0.5rem !important;
+      padding: 0.8rem 1rem !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      height: 105px !important;
+      height: 130px !important;
     }
 
     .card-body h3 {
-      font-size: 0.85rem !important;
+      font-size: 1rem !important;
       font-weight: 600 !important;
-      line-height: 1.1 !important;
+      color: #2c3e50;
+      line-height: 1.2 !important;
     }
 
     .card-price {
       font-weight: bold !important;
       color: #ff4757 !important;
-      font-size: 0.85rem !important;
+      font-size: 1rem !important;
     }
 
     .add-btn {
-      padding: 0.35rem !important;
+      padding: 0.5rem !important;
       background: #2ed573 !important;
       color: white !important;
       border: none !important;
-      border-radius: 5px !important;
+      border-radius: 8px !important;
       cursor: pointer !important;
       font-weight: bold !important;
-      font-size: 0.75rem !important;
+      font-size: 0.85rem !important;
+      transition: background 0.2s;
+    }
+
+    .add-btn:hover {
+      background: #26af5f !important;
     }
 
     .add-btn:disabled {
@@ -150,59 +180,62 @@
       cursor: not-allowed !important;
     }
 
+    /* Homiylar bo'limi */
     .sponsors-section {
       background: #ffffff;
       border-top: 1px solid #eaeaea;
-      padding: 0.6rem 1rem;
+      padding: 0.8rem 1rem;
       text-align: center;
     }
 
     .sponsors-title {
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       font-weight: bold;
       color: #888;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .sponsors-grid {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
     }
 
     .sponsor-logo {
-      height: 26px;
-      max-width: 100px;
+      height: 30px;
+      max-width: 110px;
       object-fit: contain;
     }
 
+    /* Savat (Sidebar) */
     .cart-sidebar {
       position: fixed;
       top: 0;
-      right: -320px;
-      width: 300px;
+      right: -350px;
+      width: 330px;
       height: 100%;
       background: white;
       box-shadow: -2px 0 10px rgba(0,0,0,0.15);
       transition: right 0.3s ease;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
+      padding: 1.2rem;
       z-index: 100;
     }
 
     .cart-sidebar.open { right: 0; }
-    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid #eee; padding-bottom: 0.4rem; }
-    .close-cart { background: none; border: none; font-size: 1.3rem; cursor: pointer; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+    .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #555; }
     .cart-items { flex-grow: 1; overflow-y: auto; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.8rem; }
-    .remove-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
-    .cart-footer { border-top: 1px solid #eee; padding-top: 0.8rem; }
-    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.6rem; }
-    .checkout-btn { width: 100%; padding: 0.55rem; background: #ff4757; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem; }
+    .remove-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 1rem; font-weight: bold; }
+    .cart-footer { border-top: 1px solid #eee; padding-top: 1rem; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; margin-bottom: 0.8rem; }
+    .checkout-btn { width: 100%; padding: 0.7rem; background: #ff4757; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -215,97 +248,100 @@
     <button class="cart-btn" id="cartBtn">Savat (0)</button>
   </header>
 
-  <main class="store-grid">
-    <!-- Qator 1 -->
-    <div class="product-card" data-id="1" data-name="orange podstavka">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
-      <div class="card-body">
-        <h3>Orange Podstavka</h3>
-        <p class="card-price" data-price="7000">7,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
+  <main class="store-container">
+    <!-- 1-QATOR (5 ta mahsulot) -->
+    <div class="row-5">
+      <div class="product-card" data-id="1" data-name="orange podstavka">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
+        <div class="card-body">
+          <h3>Orange Podstavka</h3>
+          <p class="card-price" data-price="7000">7,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="2" data-name="tree">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/tree.jpg" alt="Tree">
+        <div class="card-body">
+          <h3>Tree</h3>
+          <p class="card-price" data-price="7000">7,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="3" data-name="haykalcha">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
+        <div class="card-body">
+          <h3>Haykalcha</h3>
+          <p class="card-price" data-price="15000">15,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="4" data-name="stol">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/stol.jpg" alt="Stol">
+        <div class="card-body">
+          <h3>Stol</h3>
+          <p class="card-price" data-price="4000">4,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="5" data-name="podstavka">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/podstavka.jpg" alt="Podstavka">
+        <div class="card-body">
+          <h3>Podstavka</h3>
+          <p class="card-price" data-price="5000">5,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
       </div>
     </div>
 
-    <div class="product-card" data-id="2" data-name="tree">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/tree.jpg" alt="Tree">
-      <div class="card-body">
-        <h3>Tree</h3>
-        <p class="card-price" data-price="7000">7,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
+    <!-- 2-QATOR (4 ta mahsulot) -->
+    <div class="row-4">
+      <div class="product-card" data-id="6" data-name="kema 2">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/kema2.jpg" alt="Kema 2">
+        <div class="card-body">
+          <h3>Kema 2</h3>
+          <p class="card-price" data-price="12000">12,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
       </div>
-    </div>
 
-    <div class="product-card" data-id="3" data-name="haykalcha">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
-      <div class="card-body">
-        <h3>Haykalcha</h3>
-        <p class="card-price" data-price="15000">15,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
+      <div class="product-card" data-id="7" data-name="card">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/Card.jpg" alt="Card">
+        <div class="card-body">
+          <h3>Card</h3>
+          <p class="card-price" data-price="6000">6,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Qator 2 -->
-    <div class="product-card" data-id="4" data-name="stol">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/stol.jpg" alt="Stol">
-      <div class="card-body">
-        <h3>Stol</h3>
-        <p class="card-price" data-price="4000">4,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
+      <div class="product-card" data-id="8" data-name="kema">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/Kema.jpg" alt="Kema">
+        <div class="card-body">
+          <h3>Kema</h3>
+          <p class="card-price" data-price="5000">5,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
       </div>
-    </div>
 
-    <div class="product-card" data-id="5" data-name="podstavka">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/podstavka.jpg" alt="Podstavka">
-      <div class="card-body">
-        <h3>Podstavka</h3>
-        <p class="card-price" data-price="5000">5,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
-      </div>
-    </div>
-
-    <div class="product-card" data-id="6" data-name="kema 2">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/kema2.jpg" alt="Kema 2">
-      <div class="card-body">
-        <h3>Kema 2</h3>
-        <p class="card-price" data-price="12000">12,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
-      </div>
-    </div>
-
-    <!-- Qator 3 -->
-    <div class="product-card" data-id="7" data-name="card">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/Card.jpg" alt="Card">
-      <div class="card-body">
-        <h3>Card</h3>
-        <p class="card-price" data-price="6000">6,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
-      </div>
-    </div>
-
-    <div class="product-card" data-id="8" data-name="kema">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/Kema.jpg" alt="Kema">
-      <div class="card-body">
-        <h3>Kema</h3>
-        <p class="card-price" data-price="5000">5,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
-      </div>
-    </div>
-
-    <div class="product-card" data-id="9" data-name="qr code">
-      <span class="stock-badge in-stock">In Stock</span>
-      <img src="3D_Products/Qr.jpg" alt="QR Code">
-      <div class="card-body">
-        <h3>QR Code</h3>
-        <p class="card-price" data-price="15000">15,000 UZS</p>
-        <button class="add-btn">Add to Order</button>
+      <div class="product-card" data-id="9" data-name="qr code">
+        <span class="stock-badge in-stock">In Stock</span>
+        <img src="3D_Products/Qr.jpg" alt="QR Code">
+        <div class="card-body">
+          <h3>QR Code</h3>
+          <p class="card-price" data-price="15000">15,000 UZS</p>
+          <button class="add-btn">Add to Order</button>
+        </div>
       </div>
     </div>
   </main>
@@ -316,7 +352,7 @@
       <button class="close-cart" id="closeCart">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p style="font-size: 0.8rem; color: #777;">Savat bo'sh.</p>
+      <p style="font-size: 0.85rem; color: #777;">Savat bo'sh.</p>
     </div>
     <div class="cart-footer">
       <div class="cart-total">
@@ -376,7 +412,7 @@
       cartBtn.textContent = `Savat (${cart.length})`;
 
       if (cart.length === 0) {
-        container.innerHTML = '<p style="font-size: 0.8rem; color: #777;">Savat bo\'sh.</p>';
+        container.innerHTML = '<p style="font-size: 0.85rem; color: #777;">Savat bo\'sh.</p>';
         document.getElementById('cartTotalPrice').textContent = '0 UZS';
       } else {
         container.innerHTML = cart.map((item, idx) => `
