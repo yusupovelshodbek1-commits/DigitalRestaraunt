@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Generation | Restaurant Menu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" alt="Digital Generation Logo" class="logo-img">
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search dishes...">
+    </div>
+    <button class="cart-btn" id="cartBtn">
+      🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+  </header>
+
+  <!-- Category Filter Buttons -->
+  <nav class="categories">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="mains">Mains</button>
+    <button class="filter-btn" data-category="drinks">Drinks</button>
+    <button class="filter-btn" data-category="desserts">Desserts</button>
+  </nav>
+
+  <!-- Dynamic Food Cards Grid -->
+  <main class="menu-grid" id="menuGrid"></main>
+
+  <!-- Sponsor Logos Section (Bottom) -->
+  <section class="sponsors-section">
+    <p class="sponsors-title">OUR SPONSORS</p>
+    <div class="sponsors-grid">
+      <img src="zamin.png" alt="Zamin Logo" class="sponsor-logo">
+      <img src="uzum.png" alt="Uzum Logo" class="sponsor-logo">
+      <img src="Digital_1.png" alt="Digital Logo" class="sponsor-logo">
+      <img src="mmt2.png" alt="MMT Logo" class="sponsor-logo">
+      <img src="piima.png" alt="PIIMA Logo" class="sponsor-logo">
+    </div>
+  </section>
+
+  <!-- Sliding Cart Sidebar -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Your Order</h2>
+      <button id="closeCart" class="close-btn">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <h3>Total: $<span id="cartTotal">0.00</span></h3>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
