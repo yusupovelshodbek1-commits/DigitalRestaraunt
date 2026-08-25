@@ -3,25 +3,257 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Generation | Restaurant Menu</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Digital Generation Restaurant</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Header Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 1.8rem;
+      background: #111;
+      color: #fff;
+      height: 48px;
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .search-box input {
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      border: none;
+      width: 220px;
+      outline: none;
+      font-size: 0.85rem;
+    }
+
+    .cart-btn {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .cart-btn:hover {
+      background: #e03847;
+    }
+
+    /* Category Filter Buttons */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 0.4rem 1rem;
+    }
+
+    .filter-btn {
+      padding: 0.3rem 0.9rem;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: #ff4757;
+      color: white;
+      border-color: #ff4757;
+    }
+
+    /* 4-Column Food Menu Grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      padding: 0 1.5rem 0.2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      flex-grow: 1;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .card.hidden {
+      display: none !important;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 108px;
+      object-fit: cover;
+      background-color: #eee;
+    }
+
+    .card-body {
+      padding: 0.55rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .card-price {
+      font-weight: bold;
+      color: #ff4757;
+      font-size: 0.85rem;
+      margin: 0.15rem 0 0.4rem;
+    }
+
+    .add-btn {
+      margin-top: auto;
+      padding: 0.4rem;
+      background: #2ed573;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .add-btn:hover {
+      background: #25b862;
+    }
+
+    /* Sponsors Section */
+    .sponsors-section {
+      background: #ffffff;
+      border-top: 1px solid #eaeaea;
+      padding: 0.45rem 1.5rem 0.5rem;
+      text-align: center;
+    }
+
+    .sponsors-title {
+      font-size: 0.68rem;
+      font-weight: bold;
+      letter-spacing: 1.2px;
+      color: #777;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .sponsors-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    .sponsor-logo {
+      max-height: 34px;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    /* Cart Sidebar Modal */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 320px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 1.2rem;
+      z-index: 100;
+    }
+
+    .cart-sidebar.open {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top Navigation Header -->
+  <!-- Navigation Header -->
   <header class="navbar">
-    <div class="logo-container">
-      <img src="logo.png" alt="Digital Generation Logo" class="logo-img">
-    </div>
+    <div class="logo-text">Digital Generation Uzbekistan</div>
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search dishes...">
     </div>
-    <button class="cart-btn" id="cartBtn">
-      🛒 Cart (<span id="cartCount">0</span>)
-    </button>
+    <button class="cart-btn" id="cartBtn">Cart (0)</button>
   </header>
 
-  <!-- Category Filter Buttons -->
+  <!-- Category Filters -->
   <nav class="categories">
     <button class="filter-btn active" data-category="all">All</button>
     <button class="filter-btn" data-category="mains">Mains</button>
@@ -29,34 +261,179 @@
     <button class="filter-btn" data-category="desserts">Desserts</button>
   </nav>
 
-  <!-- Dynamic Food Cards Grid -->
-  <main class="menu-grid" id="menuGrid"></main>
-
-  <!-- Sponsor Logos Section (Bottom) -->
-  <section class="sponsors-section">
-    <p class="sponsors-title">OUR SPONSORS</p>
-    <div class="sponsors-grid">
-      <img src="zamin.png" alt="Zamin Logo" class="sponsor-logo">
-      <img src="uzum.png" alt="Uzum Logo" class="sponsor-logo">
-      <img src="Digital_1.png" alt="Digital Logo" class="sponsor-logo">
-      <img src="mmt2.png" alt="MMT Logo" class="sponsor-logo">
-      <img src="piima.png" alt="PIIMA Logo" class="sponsor-logo">
+  <!-- Menu Grid with Categorized Items -->
+  <main class="menu-grid">
+    <div class="card" data-category="mains" data-name="margherita pizza">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" alt="Margherita Pizza">
+      <div class="card-body">
+        <h3>Margherita Pizza</h3>
+        <p class="card-price">$12.99</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
     </div>
-  </section>
 
-  <!-- Sliding Cart Sidebar -->
-  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="card" data-category="mains" data-name="cheeseburger">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="Cheeseburger">
+      <div class="card-body">
+        <h3>Cheeseburger</h3>
+        <p class="card-price">$9.99</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="mains" data-name="ribeye steak">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500" alt="Ribeye Steak">
+      <div class="card-body">
+        <h3>Ribeye Steak</h3>
+        <p class="card-price">$24.50</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="drinks" data-name="iced latte">
+      <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500" alt="Iced Latte">
+      <div class="card-body">
+        <h3>Iced Latte</h3>
+        <p class="card-price">$4.50</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="drinks" data-name="fresh lemonade">
+      <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500" alt="Fresh Lemonade">
+      <div class="card-body">
+        <h3>Fresh Lemonade</h3>
+        <p class="card-price">$3.80</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="drinks" data-name="berry smoothie">
+      <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500" alt="Berry Smoothie">
+      <div class="card-body">
+        <h3>Berry Smoothie</h3>
+        <p class="card-price">$5.20</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="desserts" data-name="chocolate lava cake">
+      <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500" alt="Chocolate Lava Cake">
+      <div class="card-body">
+        <h3>Chocolate Lava Cake</h3>
+        <p class="card-price">$6.50</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="card" data-category="desserts" data-name="ny cheesecake">
+      <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500" alt="NY Cheesecake">
+      <div class="card-body">
+        <h3>NY Cheesecake</h3>
+        <p class="card-price">$7.00</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Cart Slide-out Drawer -->
+  <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h2>Your Order</h2>
-      <button id="closeCart" class="close-btn">&times;</button>
+      <h3>Your Cart</h3>
+      <button class="close-cart" id="closeCart">&times;</button>
     </div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer">
-      <h3>Total: $<span id="cartTotal">0.00</span></h3>
-      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    <div class="cart-items" id="cartItems">
+      <p style="font-size: 0.85rem; color: #777;">Your cart is empty.</p>
     </div>
-  </aside>
+  </div>
 
-  <script src="script.js"></script>
+  <!-- Sponsors Section -->
+  <footer class="sponsors-section">
+    <div class="sponsors-title">OUR SPONSORS</div>
+    <div class="sponsors-grid">
+      <img src="sponsor1.png" alt="Zamin Foundation" class="sponsor-logo">
+      <img src="sponsor2.png" alt="Uzum Bank" class="sponsor-logo">
+      <img src="sponsor3.png" alt="Digital Generation" class="sponsor-logo">
+      <img src="sponsor4.png" alt="Maktabgacha Ta'lim Vazirligi" class="sponsor-logo">
+      <img src="sponsor5.png" alt="Prezident Ta'lim Muassasalari Agentligi" class="sponsor-logo">
+    </div>
+  </footer>
+
+  <!-- JavaScript Functionality -->
+  <script>
+    let cart = [];
+
+    // 1. Category Filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+
+        cards.forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // 2. Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const name = card.getAttribute('data-name');
+        if (name.includes(query)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    // 3. Cart Functionality
+    const addBtns = document.querySelectorAll('.add-btn');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const closeCart = document.getElementById('closeCart');
+    const cartItemsContainer = document.getElementById('cartItems');
+
+    addBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        const name = card.querySelector('h3').textContent;
+        const price = card.querySelector('.card-price').textContent;
+
+        cart.push({ name, price });
+        updateCart();
+      });
+    });
+
+    function updateCart() {
+      cartBtn.textContent = `Cart (${cart.length})`;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="font-size: 0.85rem; color: #777;">Your cart is empty.</p>';
+      } else {
+        cartItemsContainer.innerHTML = cart.map((item, index) => `
+          <div class="cart-item">
+            <span>${item.name}</span>
+            <strong>${item.price}</strong>
+          </div>
+        `).join('');
+      }
+    }
+
+    cartBtn.addEventListener('click', () => cartSidebar.classList.add('open'));
+    closeCart.addEventListener('click', () => cartSidebar.classList.remove('open'));
+  </script>
 </body>
 </html>
