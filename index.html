@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Generation Restaurant</title>
+  <title>Digital Generation 3D Store</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,7 +13,7 @@
     }
 
     body {
-      background-color: #f8f9fa;
+      background-color: #f4f6f8;
       color: #333;
       min-height: 100vh;
       display: flex;
@@ -21,26 +21,24 @@
       justify-content: space-between;
     }
 
-    /* Header Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.35rem 1.8rem;
+      padding: 0.4rem 1.5rem;
       background: #111;
       color: #fff;
-      height: 48px;
+      height: 50px;
     }
 
-    .logo-text {
-      font-weight: bold;
-      font-size: 0.95rem;
-      color: #fff;
+    .logo-img {
+      height: 28px;
+      object-fit: contain;
     }
 
     .search-box input {
-      padding: 0.3rem 0.9rem;
-      border-radius: 20px;
+      padding: 0.35rem 0.8rem;
+      border-radius: 18px;
       border: none;
       width: 220px;
       outline: none;
@@ -51,130 +49,118 @@
       background: #ff4757;
       color: white;
       border: none;
-      padding: 0.35rem 0.9rem;
-      border-radius: 20px;
+      padding: 0.35rem 1rem;
+      border-radius: 18px;
       cursor: pointer;
       font-weight: bold;
       font-size: 0.85rem;
-      transition: background 0.2s;
     }
 
-    .cart-btn:hover {
-      background: #e03847;
+    /* 4-Column Compact Grid */
+    .compact-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 0.8rem !important;
+      padding: 1rem 1.2rem !important;
+      max-width: 1200px !important;
+      margin: 0 auto !important;
+      width: 100% !important;
     }
 
-    /* Category Filter Buttons */
-    .categories {
-      display: flex;
-      justify-content: center;
-      gap: 0.7rem;
-      padding: 0.4rem 1rem;
+    .compact-card {
+      background: white !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      height: 240px !important;
+      position: relative !important;
+      border: 1px solid #e1e8ed !important;
     }
 
-    .filter-btn {
-      padding: 0.3rem 0.9rem;
-      border: 1px solid #ddd;
-      background: white;
-      border-radius: 16px;
-      cursor: pointer;
-      font-size: 0.82rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background: #ff4757;
-      color: white;
-      border-color: #ff4757;
-    }
-
-    /* 4-Column Food Menu Grid */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.8rem;
-      padding: 0 1.5rem 0.2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-      flex-grow: 1;
-    }
-
-    .card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease;
-    }
-
-    .card.hidden {
+    .compact-card.hidden {
       display: none !important;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
+    .compact-card img {
+      width: 100% !important;
+      height: 130px !important;
+      object-fit: contain !important;
+      background-color: #f8f9fa !important;
+      padding: 6px !important;
     }
 
-    .card img {
-      width: 100%;
-      height: 108px;
-      object-fit: cover;
-      background-color: #eee;
+    .stock-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      padding: 0.15rem 0.4rem;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .stock-badge.in-stock {
+      background-color: #2ed573;
+      color: white;
+    }
+
+    .stock-badge.out-of-stock {
+      background-color: #a4b0be;
+      color: white;
     }
 
     .card-body {
-      padding: 0.55rem 0.75rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
+      padding: 0.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      height: 110px !important;
     }
 
     .card h3 {
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      line-height: 1.1 !important;
     }
 
     .card-price {
-      font-weight: bold;
-      color: #ff4757;
-      font-size: 0.85rem;
-      margin: 0.15rem 0 0.4rem;
+      font-weight: bold !important;
+      color: #ff4757 !important;
+      font-size: 0.82rem !important;
     }
 
     .add-btn {
-      margin-top: auto;
-      padding: 0.4rem;
-      background: #2ed573;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.8rem;
-      transition: background 0.2s;
+      padding: 0.35rem !important;
+      background: #2ed573 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 5px !important;
+      cursor: pointer !important;
+      font-weight: bold !important;
+      font-size: 0.75rem !important;
     }
 
-    .add-btn:hover {
-      background: #25b862;
+    .add-btn:disabled {
+      background: #dfe4ea !important;
+      color: #a4b0be !important;
+      cursor: not-allowed !important;
     }
 
-    /* Sponsors Section */
     .sponsors-section {
       background: #ffffff;
       border-top: 1px solid #eaeaea;
-      padding: 0.45rem 1.5rem 0.5rem;
+      padding: 0.6rem 1rem;
       text-align: center;
     }
 
     .sponsors-title {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: bold;
-      letter-spacing: 1.2px;
-      color: #777;
-      margin-bottom: 0.35rem;
+      color: #888;
+      margin-bottom: 0.4rem;
       text-transform: uppercase;
     }
 
@@ -182,258 +168,252 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2.2rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
     }
 
     .sponsor-logo {
-      max-height: 34px;
-      max-width: 120px;
+      height: 26px;
+      max-width: 100px;
       object-fit: contain;
     }
 
-    /* Cart Sidebar Modal */
     .cart-sidebar {
       position: fixed;
       top: 0;
-      right: -350px;
-      width: 320px;
+      right: -320px;
+      width: 300px;
       height: 100%;
       background: white;
       box-shadow: -2px 0 10px rgba(0,0,0,0.15);
       transition: right 0.3s ease;
       display: flex;
       flex-direction: column;
-      padding: 1.2rem;
+      padding: 1rem;
       z-index: 100;
     }
 
-    .cart-sidebar.open {
-      right: 0;
-    }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 0.5rem;
-    }
-
-    .close-cart {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .cart-items {
-      flex-grow: 1;
-      overflow-y: auto;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 0.85rem;
-    }
+    .cart-sidebar.open { right: 0; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid #eee; padding-bottom: 0.4rem; }
+    .close-cart { background: none; border: none; font-size: 1.3rem; cursor: pointer; }
+    .cart-items { flex-grow: 1; overflow-y: auto; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.8rem; }
+    .remove-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+    .cart-footer { border-top: 1px solid #eee; padding-top: 0.8rem; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.6rem; }
+    .checkout-btn { width: 100%; padding: 0.55rem; background: #ff4757; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Header -->
   <header class="navbar">
-    <div class="logo-text">Digital Generation Uzbekistan</div>
+    <img src="Logo.png" alt="Digital Generation Logo" class="logo-img">
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search dishes...">
+      <input type="text" id="searchInput" placeholder="Mahsulotlarni qidirish...">
     </div>
-    <button class="cart-btn" id="cartBtn">Cart (0)</button>
+    <button class="cart-btn" id="cartBtn">Savat (0)</button>
   </header>
 
-  <!-- Category Filters -->
-  <nav class="categories">
-    <button class="filter-btn active" data-category="all">All</button>
-    <button class="filter-btn" data-category="mains">Mains</button>
-    <button class="filter-btn" data-category="drinks">Drinks</button>
-    <button class="filter-btn" data-category="desserts">Desserts</button>
-  </nav>
-
-  <!-- Menu Grid with Categorized Items -->
-  <main class="menu-grid">
-    <div class="card" data-category="mains" data-name="margherita pizza">
-      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" alt="Margherita Pizza">
+  <main class="compact-grid">
+    <div class="compact-card" data-id="1" data-name="orange podstavka">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
       <div class="card-body">
-        <h3>Margherita Pizza</h3>
-        <p class="card-price">$12.99</p>
+        <h3>Orange Podstavka</h3>
+        <p class="card-price" data-price="7000">7,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="mains" data-name="cheeseburger">
-      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" alt="Cheeseburger">
+    <div class="compact-card" data-id="2" data-name="tree">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/tree.jpg" alt="Tree">
       <div class="card-body">
-        <h3>Cheeseburger</h3>
-        <p class="card-price">$9.99</p>
+        <h3>Tree</h3>
+        <p class="card-price" data-price="7000">7,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="mains" data-name="ribeye steak">
-      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500" alt="Ribeye Steak">
+    <div class="compact-card" data-id="3" data-name="haykalcha">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
       <div class="card-body">
-        <h3>Ribeye Steak</h3>
-        <p class="card-price">$24.50</p>
+        <h3>Haykalcha</h3>
+        <p class="card-price" data-price="15000">15,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="drinks" data-name="iced latte">
-      <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500" alt="Iced Latte">
+    <div class="compact-card" data-id="4" data-name="stol">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/stol.jpg" alt="Stol">
       <div class="card-body">
-        <h3>Iced Latte</h3>
-        <p class="card-price">$4.50</p>
+        <h3>Stol</h3>
+        <p class="card-price" data-price="4000">4,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="drinks" data-name="fresh lemonade">
-      <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500" alt="Fresh Lemonade">
+    <div class="compact-card" data-id="5" data-name="podstavka">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/podstavka.jpg" alt="Podstavka">
       <div class="card-body">
-        <h3>Fresh Lemonade</h3>
-        <p class="card-price">$3.80</p>
+        <h3>Podstavka</h3>
+        <p class="card-price" data-price="5000">5,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="drinks" data-name="berry smoothie">
-      <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500" alt="Berry Smoothie">
+    <div class="compact-card" data-id="6" data-name="kema 2">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/kema2.jpg" alt="Kema 2">
       <div class="card-body">
-        <h3>Berry Smoothie</h3>
-        <p class="card-price">$5.20</p>
+        <h3>Kema 2</h3>
+        <p class="card-price" data-price="12000">12,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="desserts" data-name="chocolate lava cake">
-      <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500" alt="Chocolate Lava Cake">
+    <div class="compact-card" data-id="7" data-name="card">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/Card.jpg" alt="Card">
       <div class="card-body">
-        <h3>Chocolate Lava Cake</h3>
-        <p class="card-price">$6.50</p>
+        <h3>Card</h3>
+        <p class="card-price" data-price="6000">6,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
 
-    <div class="card" data-category="desserts" data-name="ny cheesecake">
-      <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500" alt="NY Cheesecake">
+    <div class="compact-card" data-id="8" data-name="kema">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/Kema.jpg" alt="Kema">
       <div class="card-body">
-        <h3>NY Cheesecake</h3>
-        <p class="card-price">$7.00</p>
+        <h3>Kema</h3>
+        <p class="card-price" data-price="5000">5,000 UZS</p>
+        <button class="add-btn">Add to Order</button>
+      </div>
+    </div>
+
+    <div class="compact-card" data-id="9" data-name="qr code">
+      <span class="stock-badge in-stock">In Stock</span>
+      <img src="3D_Products/Qr.jpg" alt="QR Code">
+      <div class="card-body">
+        <h3>QR Code</h3>
+        <p class="card-price" data-price="15000">15,000 UZS</p>
         <button class="add-btn">Add to Order</button>
       </div>
     </div>
   </main>
 
-  <!-- Cart Slide-out Drawer -->
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h3>Your Cart</h3>
+      <h3>Sizning buyurtmangiz</h3>
       <button class="close-cart" id="closeCart">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p style="font-size: 0.85rem; color: #777;">Your cart is empty.</p>
+      <p style="font-size: 0.8rem; color: #777;">Savat bo'sh.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Jami:</span>
+        <span id="cartTotalPrice">0 UZS</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">Rasmiylashtirish</button>
     </div>
   </div>
 
-  <!-- Sponsors Section -->
   <footer class="sponsors-section">
-    <div class="sponsors-title">OUR SPONSORS</div>
+    <div class="sponsors-title">Homiylarimiz</div>
     <div class="sponsors-grid">
-      <img src="sponsor1.png" alt="Zamin Foundation" class="sponsor-logo">
-      <img src="sponsor2.png" alt="Uzum Bank" class="sponsor-logo">
-      <img src="sponsor3.png" alt="Digital Generation" class="sponsor-logo">
-      <img src="sponsor4.png" alt="Maktabgacha Ta'lim Vazirligi" class="sponsor-logo">
-      <img src="sponsor5.png" alt="Prezident Ta'lim Muassasalari Agentligi" class="sponsor-logo">
+      <img src="zamin.png" alt="Zamin" class="sponsor-logo">
+      <img src="uzum.png" alt="Uzum Bank" class="sponsor-logo">
+      <img src="digital_1.png" alt="Digital Generation" class="sponsor-logo">
+      <img src="mmt2.png" alt="Sponsor" class="sponsor-logo">
+      <img src="piima.png" alt="Sponsor" class="sponsor-logo">
     </div>
   </footer>
 
-  <!-- JavaScript Functionality -->
   <script>
     let cart = [];
+    const cards = document.querySelectorAll('.compact-card');
 
-    // 1. Category Filtering
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const category = btn.getAttribute('data-category');
-
-        cards.forEach(card => {
-          if (category === 'all' || card.getAttribute('data-category') === category) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
-    });
-
-    // 2. Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
       cards.forEach(card => {
-        const name = card.getAttribute('data-name');
-        if (name.includes(query)) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+        card.classList.toggle('hidden', !card.getAttribute('data-name').includes(q));
       });
     });
 
-    // 3. Cart Functionality
-    const addBtns = document.querySelectorAll('.add-btn');
-    const cartBtn = document.getElementById('cartBtn');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCart = document.getElementById('closeCart');
-    const cartItemsContainer = document.getElementById('cartItems');
-
-    addBtns.forEach(btn => {
+    document.querySelectorAll('.add-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const card = e.target.closest('.card');
+        const card = e.target.closest('.compact-card');
+        const id = card.getAttribute('data-id');
         const name = card.querySelector('h3').textContent;
-        const price = card.querySelector('.card-price').textContent;
+        const priceElement = card.querySelector('.card-price');
+        const numericPrice = parseFloat(priceElement.getAttribute('data-price'));
 
-        cart.push({ name, price });
+        cart.push({ id, name, priceText: priceElement.textContent, numericPrice });
+
+        const badge = card.querySelector('.stock-badge');
+        badge.textContent = 'Out of Stock';
+        badge.className = 'stock-badge out-of-stock';
+
+        btn.disabled = true;
+        btn.textContent = 'Out of Stock';
+
         updateCart();
       });
     });
 
     function updateCart() {
-      cartBtn.textContent = `Cart (${cart.length})`;
+      const cartBtn = document.getElementById('cartBtn');
+      const container = document.getElementById('cartItems');
+      cartBtn.textContent = `Savat (${cart.length})`;
 
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="font-size: 0.85rem; color: #777;">Your cart is empty.</p>';
+        container.innerHTML = '<p style="font-size: 0.8rem; color: #777;">Savat bo\'sh.</p>';
+        document.getElementById('cartTotalPrice').textContent = '0 UZS';
       } else {
-        cartItemsContainer.innerHTML = cart.map((item, index) => `
+        container.innerHTML = cart.map((item, idx) => `
           <div class="cart-item">
-            <span>${item.name}</span>
-            <strong>${item.price}</strong>
+            <div>
+              <div>${item.name}</div>
+              <strong>${item.priceText}</strong>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${idx})">&times;</button>
           </div>
         `).join('');
+
+        const total = cart.reduce((sum, item) => sum + item.numericPrice, 0);
+        document.getElementById('cartTotalPrice').textContent = `${total.toLocaleString()} UZS`;
       }
     }
 
-    cartBtn.addEventListener('click', () => cartSidebar.classList.add('open'));
-    closeCart.addEventListener('click', () => cartSidebar.classList.remove('open'));
+    function removeFromCart(idx) {
+      const item = cart[idx];
+      const card = document.querySelector(`.compact-card[data-id="${item.id}"]`);
+      if (card) {
+        const badge = card.querySelector('.stock-badge');
+        badge.textContent = 'In Stock';
+        badge.className = 'stock-badge in-stock';
+        const btn = card.querySelector('.add-btn');
+        btn.disabled = false;
+        btn.textContent = 'Add to Order';
+      }
+      cart.splice(idx, 1);
+      updateCart();
+    }
+
+    document.getElementById('cartBtn').addEventListener('click', () => document.getElementById('cartSidebar').classList.add('open'));
+    document.getElementById('closeCart').addEventListener('click', () => document.getElementById('cartSidebar').classList.remove('open'));
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      if (!cart.length) return alert('Savat bo\'sh!');
+      alert(`Buyurtma qabul qilindi! Jami: ${document.getElementById('cartTotalPrice').textContent}`);
+      cart = [];
+      updateCart();
+      document.getElementById('cartSidebar').classList.remove('open');
+    });
   </script>
 </body>
 </html>
