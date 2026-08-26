@@ -85,7 +85,6 @@
       background: #ffa502;
     }
 
-    /* Admin Boshqaruv Paneli */
     .admin-controls {
       display: none;
       background: #2f3542;
@@ -111,7 +110,6 @@
       font-weight: bold;
     }
 
-    /* Asosiy konteyner */
     .store-container {
       max-width: 1200px;
       margin: 1.5rem auto;
@@ -122,14 +120,13 @@
       gap: 1.5rem;
     }
 
-    /* Qat'iy 3x3 Grid Layout */
+    /* Qat'iy 3x3 Grid */
     .product-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 1.5rem !important;
     }
 
-    /* Mobil va planshetlar uchun qulay moslashuvchanlik */
     @media (max-width: 768px) {
       .product-grid {
         grid-template-columns: repeat(2, 1fr) !important;
@@ -142,7 +139,6 @@
       }
     }
 
-    /* Kardlar */
     .product-card {
       background: white !important;
       border-radius: 12px !important;
@@ -150,7 +146,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
       display: flex !important;
       flex-direction: column !important;
-      height: 320px !important;
+      height: 330px !important;
       position: relative !important;
       border: 1px solid #e1e8ed !important;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -167,7 +163,7 @@
 
     .product-card img {
       width: 100% !important;
-      height: 175px !important;
+      height: 160px !important;
       object-fit: contain !important;
       background-color: #f8f9fa !important;
       padding: 10px !important;
@@ -185,6 +181,10 @@
       z-index: 2;
     }
 
+    body.is-admin .stock-badge {
+      cursor: pointer;
+    }
+
     .stock-badge.in-stock {
       background-color: #2ed573;
       color: white;
@@ -200,7 +200,7 @@
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      height: 145px !important;
+      height: 170px !important;
     }
 
     .card-body h3 {
@@ -208,6 +208,14 @@
       font-weight: 600 !important;
       color: #2c3e50;
       line-height: 1.2 !important;
+    }
+
+    .stock-count-info {
+      font-size: 0.8rem;
+      color: #57606f;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .card-price-wrapper {
@@ -262,22 +270,21 @@
       z-index: 5;
     }
 
-    .edit-price-btn {
+    .edit-btn {
       display: none;
       background: #eccc68;
       border: none;
-      border-radius: 6px;
+      border-radius: 4px;
       padding: 2px 6px;
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     body.is-admin .delete-card-btn,
-    body.is-admin .edit-price-btn {
+    body.is-admin .edit-btn {
       display: inline-block;
     }
 
-    /* Modallar */
     .modal {
       display: none;
       position: fixed;
@@ -330,7 +337,6 @@
     .btn-save { background: #2ed573; color: white; }
     .btn-cancel { background: #a4b0be; color: white; }
 
-    /* Homiylar bo'limi */
     .sponsors-section {
       background: #ffffff;
       border-top: 1px solid #eaeaea;
@@ -344,7 +350,6 @@
       color: #888;
       margin-bottom: 0.5rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .sponsors-grid {
@@ -361,7 +366,6 @@
       object-fit: contain;
     }
 
-    /* Savat (Sidebar) */
     .cart-sidebar {
       position: fixed;
       top: 0;
@@ -402,142 +406,179 @@
   </header>
 
   <div class="admin-controls" id="adminBar">
-    <span>Siz Admin rejimidasiz</span>
+    <span>Admin rejimidasiz: Stock va Narxlarni ✏️ tugmalar orqali tahrirlang</span>
     <button class="add-product-btn" id="openAddModalBtn">+ Yangi Mahsulot Qo'shish</button>
   </div>
 
   <main class="store-container">
     <div class="product-grid" id="productGrid">
-      <!-- Dastlabki 9 ta mahsulot (3x3 to'plam) -->
-      <div class="product-card" data-id="1" data-name="orange podstavka">
+      
+      <div class="product-card" data-id="1" data-name="orange podstavka" data-stock="10">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
         <div class="card-body">
           <h3>Orange Podstavka</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">10</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="7000">7,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="2" data-name="tree">
+      <div class="product-card" data-id="2" data-name="tree" data-stock="5">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/tree.jpg" alt="Tree">
         <div class="card-body">
           <h3>Tree</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">5</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="7000">7,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="3" data-name="haykalcha">
+      <div class="product-card" data-id="3" data-name="haykalcha" data-stock="8">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
         <div class="card-body">
           <h3>Haykalcha</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">8</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="15000">15,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="4" data-name="stol">
+      <div class="product-card" data-id="4" data-name="stol" data-stock="12">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/stol.jpg" alt="Stol">
         <div class="card-body">
           <h3>Stol</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">12</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="4000">4,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="5" data-name="podstavka">
+      <div class="product-card" data-id="5" data-name="podstavka" data-stock="0">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge out-of-stock" onclick="toggleBadgeDirectly(this)">Out of Stock</span>
         <img src="3D_Products/podstavka.jpg" alt="Podstavka">
         <div class="card-body">
           <h3>Podstavka</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">0</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="5000">5,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
-          <button class="add-btn">Add to Order</button>
+          <button class="add-btn" disabled>Out of Stock</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="6" data-name="kema 2">
+      <div class="product-card" data-id="6" data-name="kema 2" data-stock="3">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/kema2.jpg" alt="Kema 2">
         <div class="card-body">
           <h3>Kema 2</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">3</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="12000">12,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="7" data-name="card">
+      <div class="product-card" data-id="7" data-name="card" data-stock="15">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Card.jpg" alt="Card">
         <div class="card-body">
           <h3>Card</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">15</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="6000">6,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="8" data-name="kema">
+      <div class="product-card" data-id="8" data-name="kema" data-stock="7">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Kema.jpg" alt="Kema">
         <div class="card-body">
           <h3>Kema</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">7</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="5000">5,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
 
-      <div class="product-card" data-id="9" data-name="qr code">
+      <div class="product-card" data-id="9" data-name="qr code" data-stock="4">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock">In Stock</span>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Qr.jpg" alt="QR Code">
         <div class="card-body">
           <h3>QR Code</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">4</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="15000">15,000 UZS</p>
-            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
+
     </div>
   </main>
 
-  <!-- ADMIN PAROL MODALI -->
+  <!-- MODALLAR -->
   <div class="modal" id="loginModal">
     <div class="modal-content">
       <h3>Admin Kirish</h3>
@@ -549,13 +590,13 @@
     </div>
   </div>
 
-  <!-- MAHSULOT QO'SHISH MODALI -->
   <div class="modal" id="addProductModal">
     <div class="modal-content">
       <h3>Yangi Mahsulot Qo'shish</h3>
       <input type="text" id="newProdName" placeholder="Mahsulot nomi">
-      <input type="number" id="newProdPrice" placeholder="Narxi (UZS da)">
-      <input type="text" id="newProdImg" placeholder="Rasm fayli yo'li (masalan: 3D_Products/yangi.jpg)">
+      <input type="number" id="newProdPrice" placeholder="Narxi (UZS)">
+      <input type="number" id="newProdStock" placeholder="Omborda nechta bor?" value="10">
+      <input type="text" id="newProdImg" placeholder="Rasm fayli yo'li">
       <div class="modal-actions">
         <button class="btn-save" id="saveProductBtn">Qo'shish</button>
         <button class="btn-cancel" onclick="closeModal('addProductModal')">Bekor qilish</button>
@@ -595,7 +636,8 @@
     let cart = JSON.parse(localStorage.getItem('dg_cart')) || [];
     let isAdmin = localStorage.getItem('dg_is_admin') === 'true';
     let customProducts = JSON.parse(localStorage.getItem('dg_custom_products')) || [];
-    let priceUpdates = JSON.parse(localStorage.getItem('dg_price_updates')) || {};
+    let stockStore = JSON.parse(localStorage.getItem('dg_stock_store')) || {};
+    let priceStore = JSON.parse(localStorage.getItem('dg_price_store')) || {};
 
     const adminAuthBtn = document.getElementById('adminAuthBtn');
     const adminBar = document.getElementById('adminBar');
@@ -603,13 +645,10 @@
     const addProductModal = document.getElementById('addProductModal');
     const productGrid = document.getElementById('productGrid');
 
-    // App yuklanishi
     function initApp() {
-      if (isAdmin) {
-        setAdminState(true);
-      }
+      if (isAdmin) setAdminState(true);
       renderCustomProducts();
-      applySavedPrices();
+      applySavedData();
       updateCartUI();
     }
 
@@ -629,34 +668,135 @@
       }
     }
 
-    // Saqlangan tahrirlangan narxlarni HTML kardlarga tatbiq etish
-    function applySavedPrices() {
+    // Saqlangan ombor soni va narxlarni tiklash
+    function applySavedData() {
       document.querySelectorAll('.product-card').forEach(card => {
         const id = card.getAttribute('data-id');
-        if (priceUpdates[id]) {
-          const newPrice = priceUpdates[id];
-          const priceElement = card.querySelector('.card-price');
-          priceElement.setAttribute('data-price', newPrice);
-          priceElement.textContent = Number(newPrice).toLocaleString() + ' UZS';
+        
+        // Stock tiklash
+        if (stockStore[id] !== undefined) {
+          const count = parseInt(stockStore[id]);
+          card.setAttribute('data-stock', count);
+          card.querySelector('.stock-num').textContent = count;
         }
+
+        // Narx tiklash
+        if (priceStore[id] !== undefined) {
+          const pr = parseFloat(priceStore[id]);
+          card.querySelector('.card-price').setAttribute('data-price', pr);
+          card.querySelector('.card-price').textContent = pr.toLocaleString() + ' UZS';
+        }
+
+        refreshCardBadgeAndBtn(card);
       });
     }
 
-    // Custom mahsulotlarni localStorage-dan o'qib ekranga chiqarish
+    // OMBOR SONINI O'ZGARTIRISH (Faqat stock)
+    function editStockOnly(btn) {
+      if (!isAdmin) return;
+      const card = btn.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      const currentStock = card.getAttribute('data-stock') || '0';
+
+      const input = prompt("Omborda nechta mahsulot borligini kiriting:", currentStock);
+
+      if (input !== null && input.trim() !== "" && !isNaN(input)) {
+        const newStock = Math.max(0, parseInt(input.trim()));
+        
+        stockStore[id] = newStock;
+        localStorage.setItem('dg_stock_store', JSON.stringify(stockStore));
+
+        card.setAttribute('data-stock', newStock);
+        card.querySelector('.stock-num').textContent = newStock;
+
+        refreshCardBadgeAndBtn(card);
+        updateCartUI();
+      }
+    }
+
+    // NARXNI O'ZGARTIRISH (Faqat narx)
+    function editPriceOnly(btn) {
+      if (!isAdmin) return;
+      const card = btn.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      const priceElem = card.querySelector('.card-price');
+      const currentPrice = priceElem.getAttribute('data-price');
+
+      const input = prompt("Yangi narxni kiriting (UZS):", currentPrice);
+
+      if (input !== null && input.trim() !== "" && !isNaN(input)) {
+        const newPrice = parseFloat(input.trim());
+
+        priceStore[id] = newPrice;
+        localStorage.setItem('dg_price_store', JSON.stringify(priceStore));
+
+        priceElem.setAttribute('data-price', newPrice);
+        priceElem.textContent = newPrice.toLocaleString() + ' UZS';
+
+        updateCartUI();
+      }
+    }
+
+    // Badgeni to'g'ridan-to'g'ri bosib holatni o'zgartirish
+    function toggleBadgeDirectly(badge) {
+      if (!isAdmin) return;
+      const card = badge.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      let currentStock = parseInt(card.getAttribute('data-stock') || '0');
+
+      if (currentStock > 0) {
+        currentStock = 0;
+      } else {
+        currentStock = 5;
+      }
+
+      stockStore[id] = currentStock;
+      localStorage.setItem('dg_stock_store', JSON.stringify(stockStore));
+
+      card.setAttribute('data-stock', currentStock);
+      card.querySelector('.stock-num').textContent = currentStock;
+
+      refreshCardBadgeAndBtn(card);
+      updateCartUI();
+    }
+
+    function refreshCardBadgeAndBtn(card) {
+      const stock = parseInt(card.getAttribute('data-stock') || '0');
+      const badge = card.querySelector('.stock-badge');
+      const btn = card.querySelector('.add-btn');
+
+      if (stock <= 0) {
+        badge.textContent = 'Out of Stock';
+        badge.className = 'stock-badge out-of-stock';
+        btn.disabled = true;
+        btn.textContent = 'Out of Stock';
+      } else {
+        badge.textContent = 'In Stock';
+        badge.className = 'stock-badge in-stock';
+        btn.disabled = false;
+        btn.textContent = 'Add to Order';
+      }
+    }
+
     function renderCustomProducts() {
       customProducts.forEach(prod => {
-        const currentPrice = priceUpdates[prod.id] || prod.price;
-        const formattedPrice = Number(currentPrice).toLocaleString() + ' UZS';
+        const stock = stockStore[prod.id] !== undefined ? stockStore[prod.id] : (prod.stock || 10);
+        const price = priceStore[prod.id] !== undefined ? priceStore[prod.id] : prod.price;
+
         const cardHtml = `
-          <div class="product-card" data-id="${prod.id}" data-name="${prod.name.toLowerCase()}">
+          <div class="product-card" data-id="${prod.id}" data-name="${prod.name.toLowerCase()}" data-stock="${stock}">
             <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-            <span class="stock-badge in-stock">In Stock</span>
+            <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
             <img src="${prod.img}" alt="${prod.name}">
             <div class="card-body">
               <h3>${prod.name}</h3>
+              <p class="stock-count-info">
+                Omborda: <span class="stock-num">${stock}</span> ta
+                <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+              </p>
               <div class="card-price-wrapper">
-                <p class="card-price" data-price="${currentPrice}">${formattedPrice}</p>
-                <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+                <p class="card-price" data-price="${price}">${Number(price).toLocaleString()} UZS</p>
+                <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
               </div>
               <button class="add-btn">Add to Order</button>
             </div>
@@ -671,59 +811,14 @@
       });
     }
 
-    // Narxni tahrirlash funksiyasi
-    function editProductPrice(btn) {
-      const card = btn.closest('.product-card');
-      const id = card.getAttribute('data-id');
-      const priceElement = card.querySelector('.card-price');
-      const currentPrice = priceElement.getAttribute('data-price');
-
-      const newPrice = prompt("Yangi narxni kiriting (UZS da):", currentPrice);
-
-      if (newPrice !== null && newPrice.trim() !== "" && !isNaN(newPrice)) {
-        const numericNewPrice = parseFloat(newPrice.trim());
-        priceElement.setAttribute('data-price', numericNewPrice);
-        priceElement.textContent = numericNewPrice.toLocaleString() + ' UZS';
-
-        // LocalStorage-da saqlaymiz
-        priceUpdates[id] = numericNewPrice;
-        localStorage.setItem('dg_price_updates', JSON.stringify(priceUpdates));
-
-        // Custom mahsulotlar massivida ham yangilaymiz
-        const prodIndex = customProducts.findIndex(p => p.id === id);
-        if (prodIndex !== -1) {
-          customProducts[prodIndex].price = numericNewPrice;
-          localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
-        }
-
-        // Agar bu mahsulot savatda bo'lsa, savatdagi narxini ham yangilaymiz
-        cart = cart.map(item => {
-          if (String(item.id) === String(id)) {
-            return {
-              ...item,
-              numericPrice: numericNewPrice,
-              priceText: numericNewPrice.toLocaleString() + ' UZS'
-            };
-          }
-          return item;
-        });
-        saveCart();
-        updateCartUI();
-      }
-    }
-
-    // Admin Auth Logic
+    // Admin Auth & Modal Events
     adminAuthBtn.addEventListener('click', () => {
-      if (isAdmin) {
-        setAdminState(false);
-      } else {
-        loginModal.style.display = 'flex';
-      }
+      if (isAdmin) setAdminState(false);
+      else loginModal.style.display = 'flex';
     });
 
     document.getElementById('loginSubmitBtn').addEventListener('click', () => {
-      const pwd = document.getElementById('adminPassword').value;
-      if (pwd === 'Renesans2026') {
+      if (document.getElementById('adminPassword').value === 'Renesans2026') {
         setAdminState(true);
         closeModal('loginModal');
         document.getElementById('adminPassword').value = '';
@@ -732,80 +827,46 @@
       }
     });
 
-    document.getElementById('openAddModalBtn').addEventListener('click', () => {
-      addProductModal.style.display = 'flex';
-    });
+    document.getElementById('openAddModalBtn').addEventListener('click', () => addProductModal.style.display = 'flex');
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-    }
-
-    // Yangi mahsulot qo'shish
     document.getElementById('saveProductBtn').addEventListener('click', () => {
       const name = document.getElementById('newProdName').value.trim();
       const price = document.getElementById('newProdPrice').value.trim();
+      const stock = document.getElementById('newProdStock').value.trim() || 10;
       const img = document.getElementById('newProdImg').value.trim() || '3D_Products/orange_podstavka.jpg';
 
-      if (!name || !price) {
-        alert('Iltimos, nom va narxni kiriting!');
-        return;
-      }
+      if (!name || !price) return alert('Nom va narxni kiriting!');
 
       const newId = String(Date.now());
-      const newProduct = { id: newId, name, price, img };
+      const newProduct = { id: newId, name, price: parseFloat(price), stock: parseInt(stock), img };
 
       customProducts.push(newProduct);
       localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
 
-      const formattedPrice = Number(price).toLocaleString() + ' UZS';
-      const cardHtml = `
-        <div class="product-card" data-id="${newId}" data-name="${name.toLowerCase()}">
-          <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-          <span class="stock-badge in-stock">In Stock</span>
-          <img src="${img}" alt="${name}">
-          <div class="card-body">
-            <h3>${name}</h3>
-            <div class="card-price-wrapper">
-              <p class="card-price" data-price="${price}">${formattedPrice}</p>
-              <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
-            </div>
-            <button class="add-btn">Add to Order</button>
-          </div>
-        </div>
-      `;
+      stockStore[newId] = parseInt(stock);
+      priceStore[newId] = parseFloat(price);
+      localStorage.setItem('dg_stock_store', JSON.stringify(stockStore));
+      localStorage.setItem('dg_price_store', JSON.stringify(priceStore));
 
-      productGrid.insertAdjacentHTML('beforeend', cardHtml);
-      const newCardBtn = productGrid.lastElementChild.querySelector('.add-btn');
-      newCardBtn.addEventListener('click', handleAddToCart);
-
-      document.getElementById('newProdName').value = '';
-      document.getElementById('newProdPrice').value = '';
-      document.getElementById('newProdImg').value = '';
-      closeModal('addProductModal');
-      updateCartUI();
+      location.reload();
     });
 
-    // Mahsulotni o'chirish
     function deleteProduct(btn) {
-      if (confirm('Ushbu mahsulotni o\'chirmoqchimisiz?')) {
+      if (confirm('Mahsulotni o\'chirmoqchimisiz?')) {
         const card = btn.closest('.product-card');
         const id = card.getAttribute('data-id');
-        
         customProducts = customProducts.filter(p => p.id !== id);
         localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
-
-        delete priceUpdates[id];
-        localStorage.setItem('dg_price_updates', JSON.stringify(priceUpdates));
-
-        cart = cart.filter(item => String(item.id) !== String(id));
-        saveCart();
-
+        delete stockStore[id];
+        delete priceStore[id];
+        localStorage.setItem('dg_stock_store', JSON.stringify(stockStore));
+        localStorage.setItem('dg_price_store', JSON.stringify(priceStore));
         card.remove();
         updateCartUI();
       }
     }
 
-    // Search Filtering
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
       document.querySelectorAll('.product-card').forEach(card => {
@@ -813,7 +874,6 @@
       });
     });
 
-    // Cart Logic
     function handleAddToCart(e) {
       const card = e.target.closest('.product-card');
       const id = card.getAttribute('data-id');
@@ -826,9 +886,7 @@
       updateCartUI();
     }
 
-    function saveCart() {
-      localStorage.setItem('dg_cart', JSON.stringify(cart));
-    }
+    function saveCart() { localStorage.setItem('dg_cart', JSON.stringify(cart)); }
 
     function updateCartUI() {
       const cartBtn = document.getElementById('cartBtn');
@@ -837,15 +895,22 @@
 
       document.querySelectorAll('.product-card').forEach(card => {
         const id = card.getAttribute('data-id');
+        const stock = parseInt(card.getAttribute('data-stock') || 0);
         const inCart = cart.some(item => String(item.id) === String(id));
+
         const badge = card.querySelector('.stock-badge');
         const btn = card.querySelector('.add-btn');
 
-        if (inCart) {
+        if (stock <= 0) {
           badge.textContent = 'Out of Stock';
           badge.className = 'stock-badge out-of-stock';
           btn.disabled = true;
           btn.textContent = 'Out of Stock';
+        } else if (inCart) {
+          badge.textContent = 'Savatda';
+          badge.className = 'stock-badge out-of-stock';
+          btn.disabled = true;
+          btn.textContent = 'Savatga qo\'shilgan';
         } else {
           badge.textContent = 'In Stock';
           badge.className = 'stock-badge in-stock';
