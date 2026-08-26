@@ -203,6 +203,12 @@
       line-height: 1.2 !important;
     }
 
+    .card-price-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .card-price {
       font-weight: 800 !important;
       color: #ff4757 !important;
@@ -249,8 +255,19 @@
       z-index: 5;
     }
 
-    body.is-admin .delete-card-btn {
-      display: block;
+    .edit-price-btn {
+      display: none;
+      background: #eccc68;
+      border: none;
+      border-radius: 6px;
+      padding: 2px 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    body.is-admin .delete-card-btn,
+    body.is-admin .edit-price-btn {
+      display: inline-block;
     }
 
     /* Modallar */
@@ -391,7 +408,10 @@
         <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
         <div class="card-body">
           <h3>Orange Podstavka</h3>
-          <p class="card-price" data-price="7000">7,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="7000">7,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -402,7 +422,10 @@
         <img src="3D_Products/tree.jpg" alt="Tree">
         <div class="card-body">
           <h3>Tree</h3>
-          <p class="card-price" data-price="7000">7,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="7000">7,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -413,7 +436,10 @@
         <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
         <div class="card-body">
           <h3>Haykalcha</h3>
-          <p class="card-price" data-price="15000">15,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="15000">15,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -424,7 +450,10 @@
         <img src="3D_Products/stol.jpg" alt="Stol">
         <div class="card-body">
           <h3>Stol</h3>
-          <p class="card-price" data-price="4000">4,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="4000">4,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -435,7 +464,10 @@
         <img src="3D_Products/podstavka.jpg" alt="Podstavka">
         <div class="card-body">
           <h3>Podstavka</h3>
-          <p class="card-price" data-price="5000">5,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="5000">5,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -446,7 +478,10 @@
         <img src="3D_Products/kema2.jpg" alt="Kema 2">
         <div class="card-body">
           <h3>Kema 2</h3>
-          <p class="card-price" data-price="12000">12,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="12000">12,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -457,7 +492,10 @@
         <img src="3D_Products/Card.jpg" alt="Card">
         <div class="card-body">
           <h3>Card</h3>
-          <p class="card-price" data-price="6000">6,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="6000">6,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -468,7 +506,10 @@
         <img src="3D_Products/Kema.jpg" alt="Kema">
         <div class="card-body">
           <h3>Kema</h3>
-          <p class="card-price" data-price="5000">5,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="5000">5,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -479,7 +520,10 @@
         <img src="3D_Products/Qr.jpg" alt="QR Code">
         <div class="card-body">
           <h3>QR Code</h3>
-          <p class="card-price" data-price="15000">15,000 UZS</p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="15000">15,000 UZS</p>
+            <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+          </div>
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
@@ -544,6 +588,7 @@
     let cart = JSON.parse(localStorage.getItem('dg_cart')) || [];
     let isAdmin = localStorage.getItem('dg_is_admin') === 'true';
     let customProducts = JSON.parse(localStorage.getItem('dg_custom_products')) || [];
+    let priceUpdates = JSON.parse(localStorage.getItem('dg_price_updates')) || {};
 
     const adminAuthBtn = document.getElementById('adminAuthBtn');
     const adminBar = document.getElementById('adminBar');
@@ -557,6 +602,7 @@
         setAdminState(true);
       }
       renderCustomProducts();
+      applySavedPrices();
       updateCartUI();
     }
 
@@ -576,10 +622,24 @@
       }
     }
 
+    // Saqlangan tahrirlangan narxlarni HTML kardlarga tatbiq etish
+    function applySavedPrices() {
+      document.querySelectorAll('.product-card').forEach(card => {
+        const id = card.getAttribute('data-id');
+        if (priceUpdates[id]) {
+          const newPrice = priceUpdates[id];
+          const priceElement = card.querySelector('.card-price');
+          priceElement.setAttribute('data-price', newPrice);
+          priceElement.textContent = Number(newPrice).toLocaleString() + ' UZS';
+        }
+      });
+    }
+
     // Custom mahsulotlarni localStorage-dan o'qib ekranga chiqarish
     function renderCustomProducts() {
       customProducts.forEach(prod => {
-        const formattedPrice = Number(prod.price).toLocaleString() + ' UZS';
+        const currentPrice = priceUpdates[prod.id] || prod.price;
+        const formattedPrice = Number(currentPrice).toLocaleString() + ' UZS';
         const cardHtml = `
           <div class="product-card" data-id="${prod.id}" data-name="${prod.name.toLowerCase()}">
             <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
@@ -587,7 +647,10 @@
             <img src="${prod.img}" alt="${prod.name}">
             <div class="card-body">
               <h3>${prod.name}</h3>
-              <p class="card-price" data-price="${prod.price}">${formattedPrice}</p>
+              <div class="card-price-wrapper">
+                <p class="card-price" data-price="${currentPrice}">${formattedPrice}</p>
+                <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+              </div>
               <button class="add-btn">Add to Order</button>
             </div>
           </div>
@@ -595,11 +658,51 @@
         productGrid.insertAdjacentHTML('beforeend', cardHtml);
       });
 
-      // Barcha tugmalarga hodisa biriktirish
       document.querySelectorAll('.add-btn').forEach(btn => {
         btn.removeEventListener('click', handleAddToCart);
         btn.addEventListener('click', handleAddToCart);
       });
+    }
+
+    // Narxni tahrirlash funksiyasi
+    function editProductPrice(btn) {
+      const card = btn.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      const priceElement = card.querySelector('.card-price');
+      const currentPrice = priceElement.getAttribute('data-price');
+
+      const newPrice = prompt("Yangi narxni kiriting (UZS da):", currentPrice);
+
+      if (newPrice !== null && newPrice.trim() !== "" && !isNaN(newPrice)) {
+        const numericNewPrice = parseFloat(newPrice.trim());
+        priceElement.setAttribute('data-price', numericNewPrice);
+        priceElement.textContent = numericNewPrice.toLocaleString() + ' UZS';
+
+        // LocalStorage-da saqlaymiz
+        priceUpdates[id] = numericNewPrice;
+        localStorage.setItem('dg_price_updates', JSON.stringify(priceUpdates));
+
+        // Custom mahsulotlar massivida ham yangilab qo'yamiz
+        const prodIndex = customProducts.findIndex(p => p.id === id);
+        if (prodIndex !== -1) {
+          customProducts[prodIndex].price = numericNewPrice;
+          localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
+        }
+
+        // Agar bu mahsulot savatda bo'lsa, savatdagi narxini ham yangilaymiz
+        cart = cart.map(item => {
+          if (String(item.id) === String(id)) {
+            return {
+              ...item,
+              numericPrice: numericNewPrice,
+              priceText: numericNewPrice.toLocaleString() + ' UZS'
+            };
+          }
+          return item;
+        });
+        saveCart();
+        updateCartUI();
+      }
     }
 
     // Admin Auth Logic
@@ -630,7 +733,7 @@
       document.getElementById(modalId).style.display = 'none';
     }
 
-    // Yangi mahsulot qo'shish va localStorage-ga saqlash
+    // Yangi mahsulot qo'shish
     document.getElementById('saveProductBtn').addEventListener('click', () => {
       const name = document.getElementById('newProdName').value.trim();
       const price = document.getElementById('newProdPrice').value.trim();
@@ -644,7 +747,6 @@
       const newId = String(Date.now());
       const newProduct = { id: newId, name, price, img };
 
-      // LocalStorage-ga saqlaymiz
       customProducts.push(newProduct);
       localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
 
@@ -656,7 +758,10 @@
           <img src="${img}" alt="${name}">
           <div class="card-body">
             <h3>${name}</h3>
-            <p class="card-price" data-price="${price}">${formattedPrice}</p>
+            <div class="card-price-wrapper">
+              <p class="card-price" data-price="${price}">${formattedPrice}</p>
+              <button class="edit-price-btn" onclick="editProductPrice(this)">✏️</button>
+            </div>
             <button class="add-btn">Add to Order</button>
           </div>
         </div>
@@ -673,7 +778,7 @@
       updateCartUI();
     });
 
-    // Mahsulotni o'chirish (agar u custom bo'lsa localStorage-dan ham o'chadi)
+    // Mahsulotni o'chirish
     function deleteProduct(btn) {
       if (confirm('Ushbu mahsulotni o\'chirmoqchimisiz?')) {
         const card = btn.closest('.product-card');
@@ -682,7 +787,9 @@
         customProducts = customProducts.filter(p => p.id !== id);
         localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
 
-        // Savatda bo'lsa savatdan ham o'chiramiz
+        delete priceUpdates[id];
+        localStorage.setItem('dg_price_updates', JSON.stringify(priceUpdates));
+
         cart = cart.filter(item => String(item.id) !== String(id));
         saveCart();
 
