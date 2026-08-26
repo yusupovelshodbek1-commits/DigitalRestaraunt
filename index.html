@@ -36,11 +36,17 @@
       object-fit: contain;
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .search-box input {
       padding: 0.45rem 1rem;
       border-radius: 20px;
       border: none;
-      width: 280px;
+      width: 250px;
       outline: none;
       font-size: 0.9rem;
     }
@@ -56,6 +62,47 @@
       font-size: 0.9rem;
     }
 
+    .admin-btn {
+      background: #2ed573;
+      color: white;
+      border: none;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .admin-btn.logout {
+      background: #ffa502;
+    }
+
+    /* Admin Boshqaruv Paneli */
+    .admin-controls {
+      display: none;
+      background: #2f3542;
+      color: white;
+      padding: 0.8rem 2rem;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .admin-controls.active {
+      display: flex;
+    }
+
+    .add-product-btn {
+      background: #70a1ff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     /* Asosiy konteyner */
     .store-container {
       max-width: 1400px;
@@ -67,24 +114,14 @@
       gap: 1.5rem;
     }
 
-    /* 1-qator: 5 ta mahsulot */
-    .row-5 {
+    /* Grid layout */
+    .product-grid {
       display: grid !important;
       grid-template-columns: repeat(5, 1fr) !important;
       gap: 1.2rem !important;
     }
 
-    /* 2-qator: 4 ta mahsulot */
-    .row-4 {
-      display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
-      gap: 1.2rem !important;
-      max-width: 1120px !important; /* Markazroq turishi uchun */
-      margin: 0 auto !important;
-      width: 100% !important;
-    }
-
-    /* Kattaroq va chiroyli kardlar */
+    /* Kardlar */
     .product-card {
       background: white !important;
       border-radius: 12px !important;
@@ -92,7 +129,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
       display: flex !important;
       flex-direction: column !important;
-      height: 310px !important;
+      height: 320px !important;
       position: relative !important;
       border: 1px solid #e1e8ed !important;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -109,7 +146,7 @@
 
     .product-card img {
       width: 100% !important;
-      height: 180px !important;
+      height: 175px !important;
       object-fit: contain !important;
       background-color: #f8f9fa !important;
       padding: 10px !important;
@@ -142,7 +179,7 @@
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
-      height: 130px !important;
+      height: 145px !important;
     }
 
     .card-body h3 {
@@ -153,13 +190,14 @@
     }
 
     .card-price {
-      font-weight: bold !important;
+      font-weight: 800 !important;
       color: #ff4757 !important;
-      font-size: 1rem !important;
+      font-size: 1.25rem !important;
+      letter-spacing: 0.5px !important;
     }
 
     .add-btn {
-      padding: 0.5rem !important;
+      padding: 0.55rem !important;
       background: #2ed573 !important;
       color: white !important;
       border: none !important;
@@ -179,6 +217,79 @@
       color: #a4b0be !important;
       cursor: not-allowed !important;
     }
+
+    .delete-card-btn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 5;
+    }
+
+    body.is-admin .delete-card-btn {
+      display: block;
+    }
+
+    /* Modallar */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-content h3 {
+      text-align: center;
+    }
+
+    .modal-content input {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-save { background: #2ed573; color: white; }
+    .btn-cancel { background: #a4b0be; color: white; }
 
     /* Homiylar bo'limi */
     .sponsors-section {
@@ -234,7 +345,7 @@
     .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem; }
     .remove-btn { background: none; border: none; color: #ff4757; cursor: pointer; font-size: 1rem; font-weight: bold; }
     .cart-footer { border-top: 1px solid #eee; padding-top: 1rem; }
-    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; margin-bottom: 0.8rem; }
+    .cart-total { display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.8rem; }
     .checkout-btn { width: 100%; padding: 0.7rem; background: #ff4757; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; }
   </style>
 </head>
@@ -245,13 +356,21 @@
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Mahsulotlarni qidirish...">
     </div>
-    <button class="cart-btn" id="cartBtn">Savat (0)</button>
+    <div class="nav-actions">
+      <button class="admin-btn" id="adminAuthBtn">🔑 Admin Login</button>
+      <button class="cart-btn" id="cartBtn">Savat (0)</button>
+    </div>
   </header>
 
+  <div class="admin-controls" id="adminBar">
+    <span>Siz Admin rejimidasiz</span>
+    <button class="add-product-btn" id="openAddModalBtn">+ Yangi Mahsulot Qo'shish</button>
+  </div>
+
   <main class="store-container">
-    <!-- 1-QATOR (5 ta mahsulot) -->
-    <div class="row-5">
+    <div class="product-grid" id="productGrid">
       <div class="product-card" data-id="1" data-name="orange podstavka">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/orange_podstavka.jpg" alt="Orange Podstavka">
         <div class="card-body">
@@ -262,6 +381,7 @@
       </div>
 
       <div class="product-card" data-id="2" data-name="tree">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/tree.jpg" alt="Tree">
         <div class="card-body">
@@ -272,6 +392,7 @@
       </div>
 
       <div class="product-card" data-id="3" data-name="haykalcha">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/hayklacha.jpg" alt="Haykalcha">
         <div class="card-body">
@@ -282,6 +403,7 @@
       </div>
 
       <div class="product-card" data-id="4" data-name="stol">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/stol.jpg" alt="Stol">
         <div class="card-body">
@@ -292,6 +414,7 @@
       </div>
 
       <div class="product-card" data-id="5" data-name="podstavka">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/podstavka.jpg" alt="Podstavka">
         <div class="card-body">
@@ -300,11 +423,9 @@
           <button class="add-btn">Add to Order</button>
         </div>
       </div>
-    </div>
 
-    <!-- 2-QATOR (4 ta mahsulot) -->
-    <div class="row-4">
       <div class="product-card" data-id="6" data-name="kema 2">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/kema2.jpg" alt="Kema 2">
         <div class="card-body">
@@ -315,6 +436,7 @@
       </div>
 
       <div class="product-card" data-id="7" data-name="card">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/Card.jpg" alt="Card">
         <div class="card-body">
@@ -325,6 +447,7 @@
       </div>
 
       <div class="product-card" data-id="8" data-name="kema">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/Kema.jpg" alt="Kema">
         <div class="card-body">
@@ -335,6 +458,7 @@
       </div>
 
       <div class="product-card" data-id="9" data-name="qr code">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
         <img src="3D_Products/Qr.jpg" alt="QR Code">
         <div class="card-body">
@@ -345,6 +469,32 @@
       </div>
     </div>
   </main>
+
+  <!-- ADMIN PAROL MODALI -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h3>Admin Kirish</h3>
+      <input type="password" id="adminPassword" placeholder="Admin parolini kiriting...">
+      <div class="modal-actions">
+        <button class="btn-save" id="loginSubmitBtn">Kirish</button>
+        <button class="btn-cancel" onclick="closeModal('loginModal')">Bekor qilish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAHSULOT QO'SHISH MODALI -->
+  <div class="modal" id="addProductModal">
+    <div class="modal-content">
+      <h3>Yangi Mahsulot Qo'shish</h3>
+      <input type="text" id="newProdName" placeholder="Mahsulot nomi">
+      <input type="number" id="newProdPrice" placeholder="Narxi (UZS da)">
+      <input type="text" id="newProdImg" placeholder="Rasm fayli yo'li (masalan: 3D_Products/yangi.jpg)">
+      <div class="modal-actions">
+        <button class="btn-save" id="saveProductBtn">Qo'shish</button>
+        <button class="btn-cancel" onclick="closeModal('addProductModal')">Bekor qilish</button>
+      </div>
+    </div>
+  </div>
 
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
@@ -376,16 +526,102 @@
 
   <script>
     let cart = [];
-    const cards = document.querySelectorAll('.product-card');
+    let isAdmin = false;
 
+    // Admin Auth Logic
+    const adminAuthBtn = document.getElementById('adminAuthBtn');
+    const adminBar = document.getElementById('adminBar');
+    const loginModal = document.getElementById('loginModal');
+    const addProductModal = document.getElementById('addProductModal');
+
+    adminAuthBtn.addEventListener('click', () => {
+      if (isAdmin) {
+        isAdmin = false;
+        document.body.classList.remove('is-admin');
+        adminBar.classList.remove('active');
+        adminAuthBtn.textContent = '🔑 Admin Login';
+        adminAuthBtn.classList.remove('logout');
+      } else {
+        loginModal.style.display = 'flex';
+      }
+    });
+
+    document.getElementById('loginSubmitBtn').addEventListener('click', () => {
+      const pwd = document.getElementById('adminPassword').value;
+      if (pwd === 'Renesans2026') {
+        isAdmin = true;
+        document.body.classList.add('is-admin');
+        adminBar.classList.add('active');
+        adminAuthBtn.textContent = '🚪 Chiqish';
+        adminAuthBtn.classList.add('logout');
+        closeModal('loginModal');
+        document.getElementById('adminPassword').value = '';
+      } else {
+        alert('Noto\'g\'ri parol!');
+      }
+    });
+
+    document.getElementById('openAddModalBtn').addEventListener('click', () => {
+      addProductModal.style.display = 'flex';
+    });
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Dynamic Product Addition
+    document.getElementById('saveProductBtn').addEventListener('click', () => {
+      const name = document.getElementById('newProdName').value.trim();
+      const price = document.getElementById('newProdPrice').value.trim();
+      const img = document.getElementById('newProdImg').value.trim() || '3D_Products/orange_podstavka.jpg';
+
+      if (!name || !price) {
+        alert('Iltimos, nom va narxni kiriting!');
+        return;
+      }
+
+      const grid = document.getElementById('productGrid');
+      const newId = Date.now();
+      const formattedPrice = Number(price).toLocaleString() + ' UZS';
+
+      const cardHtml = `
+        <div class="product-card" data-id="${newId}" data-name="${name.toLowerCase()}">
+          <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+          <span class="stock-badge in-stock">In Stock</span>
+          <img src="${img}" alt="${name}">
+          <div class="card-body">
+            <h3>${name}</h3>
+            <p class="card-price" data-price="${price}">${formattedPrice}</p>
+            <button class="add-btn">Add to Order</button>
+          </div>
+        </div>
+      `;
+
+      grid.insertAdjacentHTML('beforeend', cardHtml);
+      attachOrderEvent(grid.lastElementChild.querySelector('.add-btn'));
+
+      document.getElementById('newProdName').value = '';
+      document.getElementById('newProdPrice').value = '';
+      document.getElementById('newProdImg').value = '';
+      closeModal('addProductModal');
+    });
+
+    function deleteProduct(btn) {
+      if (confirm('Ushbu mahsulotni o\'chirmoqchimisiz?')) {
+        btn.closest('.product-card').remove();
+      }
+    }
+
+    // Search Filtering
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
-      cards.forEach(card => {
+      document.querySelectorAll('.product-card').forEach(card => {
         card.classList.toggle('hidden', !card.getAttribute('data-name').includes(q));
       });
     });
 
-    document.querySelectorAll('.add-btn').forEach(btn => {
+    // Cart Logic
+    function attachOrderEvent(btn) {
       btn.addEventListener('click', (e) => {
         const card = e.target.closest('.product-card');
         const id = card.getAttribute('data-id');
@@ -404,7 +640,9 @@
 
         updateCart();
       });
-    });
+    }
+
+    document.querySelectorAll('.add-btn').forEach(btn => attachOrderEvent(btn));
 
     function updateCart() {
       const cartBtn = document.getElementById('cartBtn');
@@ -419,7 +657,7 @@
           <div class="cart-item">
             <div>
               <div>${item.name}</div>
-              <strong>${item.priceText}</strong>
+              <strong style="color: #ff4757;">${item.priceText}</strong>
             </div>
             <button class="remove-btn" onclick="removeFromCart(${idx})">&times;</button>
           </div>
