@@ -21,7 +21,6 @@
       justify-content: space-between;
     }
 
-    /* Navbar joylashuvi va tugmalar ko'rinishi tuzatildi */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -385,6 +384,7 @@
 
   <main class="store-container">
     <div class="product-grid" id="productGrid">
+      <!-- Dastlabki 9 ta standart mahsulot -->
       <div class="product-card" data-id="1" data-name="orange podstavka">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock">In Stock</span>
@@ -541,22 +541,71 @@
   </footer>
 
   <script>
-    let cart = [];
-    let isAdmin = false;
+    let cart = JSON.parse(localStorage.getItem('dg_cart')) || [];
+    let isAdmin = localStorage.getItem('dg_is_admin') === 'true';
+    let customProducts = JSON.parse(localStorage.getItem('dg_custom_products')) || [];
 
-    // Admin Auth Logic
     const adminAuthBtn = document.getElementById('adminAuthBtn');
     const adminBar = document.getElementById('adminBar');
     const loginModal = document.getElementById('loginModal');
     const addProductModal = document.getElementById('addProductModal');
+    const productGrid = document.getElementById('productGrid');
 
-    adminAuthBtn.addEventListener('click', () => {
+    // App yuklanishi
+    function initApp() {
       if (isAdmin) {
-        isAdmin = false;
+        setAdminState(true);
+      }
+      renderCustomProducts();
+      updateCartUI();
+    }
+
+    function setAdminState(status) {
+      isAdmin = status;
+      localStorage.setItem('dg_is_admin', status);
+      if (status) {
+        document.body.classList.add('is-admin');
+        adminBar.classList.add('active');
+        adminAuthBtn.textContent = '🚪 Chiqish';
+        adminAuthBtn.classList.add('logout');
+      } else {
         document.body.classList.remove('is-admin');
         adminBar.classList.remove('active');
         adminAuthBtn.textContent = '🔑 Admin Login';
         adminAuthBtn.classList.remove('logout');
+      }
+    }
+
+    // Custom mahsulotlarni localStorage-dan o'qib ekranga chiqarish
+    function renderCustomProducts() {
+      customProducts.forEach(prod => {
+        const formattedPrice = Number(prod.price).toLocaleString() + ' UZS';
+        const cardHtml = `
+          <div class="product-card" data-id="${prod.id}" data-name="${prod.name.toLowerCase()}">
+            <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+            <span class="stock-badge in-stock">In Stock</span>
+            <img src="${prod.img}" alt="${prod.name}">
+            <div class="card-body">
+              <h3>${prod.name}</h3>
+              <p class="card-price" data-price="${prod.price}">${formattedPrice}</p>
+              <button class="add-btn">Add to Order</button>
+            </div>
+          </div>
+        `;
+        productGrid.insertAdjacentHTML('beforeend', cardHtml);
+      });
+
+      // Barcha tugmalarga hodisa biriktirish
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.removeEventListener('click', handleAddToCart);
+        btn.addEventListener('click', handleAddToCart);
+      });
+    }
+
+    // Admin Auth Logic
+    adminAuthBtn.addEventListener('click', () => {
+      if (isAdmin) {
+        setAdminState(false);
       } else {
         loginModal.style.display = 'flex';
       }
@@ -565,11 +614,7 @@
     document.getElementById('loginSubmitBtn').addEventListener('click', () => {
       const pwd = document.getElementById('adminPassword').value;
       if (pwd === 'Renesans2026') {
-        isAdmin = true;
-        document.body.classList.add('is-admin');
-        adminBar.classList.add('active');
-        adminAuthBtn.textContent = '🚪 Chiqish';
-        adminAuthBtn.classList.add('logout');
+        setAdminState(true);
         closeModal('loginModal');
         document.getElementById('adminPassword').value = '';
       } else {
@@ -585,7 +630,7 @@
       document.getElementById(modalId).style.display = 'none';
     }
 
-    // Dynamic Product Addition
+    // Yangi mahsulot qo'shish va localStorage-ga saqlash
     document.getElementById('saveProductBtn').addEventListener('click', () => {
       const name = document.getElementById('newProdName').value.trim();
       const price = document.getElementById('newProdPrice').value.trim();
@@ -596,10 +641,14 @@
         return;
       }
 
-      const grid = document.getElementById('productGrid');
-      const newId = Date.now();
-      const formattedPrice = Number(price).toLocaleString() + ' UZS';
+      const newId = String(Date.now());
+      const newProduct = { id: newId, name, price, img };
 
+      // LocalStorage-ga saqlaymiz
+      customProducts.push(newProduct);
+      localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
+
+      const formattedPrice = Number(price).toLocaleString() + ' UZS';
       const cardHtml = `
         <div class="product-card" data-id="${newId}" data-name="${name.toLowerCase()}">
           <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
@@ -613,18 +662,32 @@
         </div>
       `;
 
-      grid.insertAdjacentHTML('beforeend', cardHtml);
-      attachOrderEvent(grid.lastElementChild.querySelector('.add-btn'));
+      productGrid.insertAdjacentHTML('beforeend', cardHtml);
+      const newCardBtn = productGrid.lastElementChild.querySelector('.add-btn');
+      newCardBtn.addEventListener('click', handleAddToCart);
 
       document.getElementById('newProdName').value = '';
       document.getElementById('newProdPrice').value = '';
       document.getElementById('newProdImg').value = '';
       closeModal('addProductModal');
+      updateCartUI();
     });
 
+    // Mahsulotni o'chirish (agar u custom bo'lsa localStorage-dan ham o'chadi)
     function deleteProduct(btn) {
       if (confirm('Ushbu mahsulotni o\'chirmoqchimisiz?')) {
-        btn.closest('.product-card').remove();
+        const card = btn.closest('.product-card');
+        const id = card.getAttribute('data-id');
+        
+        customProducts = customProducts.filter(p => p.id !== id);
+        localStorage.setItem('dg_custom_products', JSON.stringify(customProducts));
+
+        // Savatda bo'lsa savatdan ham o'chiramiz
+        cart = cart.filter(item => String(item.id) !== String(id));
+        saveCart();
+
+        card.remove();
+        updateCartUI();
       }
     }
 
@@ -637,33 +700,45 @@
     });
 
     // Cart Logic
-    function attachOrderEvent(btn) {
-      btn.addEventListener('click', (e) => {
-        const card = e.target.closest('.product-card');
-        const id = card.getAttribute('data-id');
-        const name = card.querySelector('h3').textContent;
-        const priceElement = card.querySelector('.card-price');
-        const numericPrice = parseFloat(priceElement.getAttribute('data-price'));
+    function handleAddToCart(e) {
+      const card = e.target.closest('.product-card');
+      const id = card.getAttribute('data-id');
+      const name = card.querySelector('h3').textContent;
+      const priceElement = card.querySelector('.card-price');
+      const numericPrice = parseFloat(priceElement.getAttribute('data-price'));
 
-        cart.push({ id, name, priceText: priceElement.textContent, numericPrice });
-
-        const badge = card.querySelector('.stock-badge');
-        badge.textContent = 'Out of Stock';
-        badge.className = 'stock-badge out-of-stock';
-
-        btn.disabled = true;
-        btn.textContent = 'Out of Stock';
-
-        updateCart();
-      });
+      cart.push({ id, name, priceText: priceElement.textContent, numericPrice });
+      saveCart();
+      updateCartUI();
     }
 
-    document.querySelectorAll('.add-btn').forEach(btn => attachOrderEvent(btn));
+    function saveCart() {
+      localStorage.setItem('dg_cart', JSON.stringify(cart));
+    }
 
-    function updateCart() {
+    function updateCartUI() {
       const cartBtn = document.getElementById('cartBtn');
       const container = document.getElementById('cartItems');
       cartBtn.textContent = `Savat (${cart.length})`;
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        const id = card.getAttribute('data-id');
+        const inCart = cart.some(item => String(item.id) === String(id));
+        const badge = card.querySelector('.stock-badge');
+        const btn = card.querySelector('.add-btn');
+
+        if (inCart) {
+          badge.textContent = 'Out of Stock';
+          badge.className = 'stock-badge out-of-stock';
+          btn.disabled = true;
+          btn.textContent = 'Out of Stock';
+        } else {
+          badge.textContent = 'In Stock';
+          badge.className = 'stock-badge in-stock';
+          btn.disabled = false;
+          btn.textContent = 'Add to Order';
+        }
+      });
 
       if (cart.length === 0) {
         container.innerHTML = '<p style="font-size: 0.85rem; color: #777;">Savat bo\'sh.</p>';
@@ -685,18 +760,9 @@
     }
 
     function removeFromCart(idx) {
-      const item = cart[idx];
-      const card = document.querySelector(`.product-card[data-id="${item.id}"]`);
-      if (card) {
-        const badge = card.querySelector('.stock-badge');
-        badge.textContent = 'In Stock';
-        badge.className = 'stock-badge in-stock';
-        const btn = card.querySelector('.add-btn');
-        btn.disabled = false;
-        btn.textContent = 'Add to Order';
-      }
       cart.splice(idx, 1);
-      updateCart();
+      saveCart();
+      updateCartUI();
     }
 
     document.getElementById('cartBtn').addEventListener('click', () => document.getElementById('cartSidebar').classList.add('open'));
@@ -705,9 +771,12 @@
       if (!cart.length) return alert('Savat bo\'sh!');
       alert(`Buyurtma qabul qilindi! Jami: ${document.getElementById('cartTotalPrice').textContent}`);
       cart = [];
-      updateCart();
+      saveCart();
+      updateCartUI();
       document.getElementById('cartSidebar').classList.remove('open');
     });
+
+    initApp();
   </script>
 </body>
 </html>
