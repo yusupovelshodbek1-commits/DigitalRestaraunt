@@ -469,13 +469,13 @@
   </footer>
 
   <script>
-    // Hard reset cache to ensure sunglasses fix & new Playstation controller are loaded
-    if (!localStorage.getItem('dg_initialized_v4')) {
+    // Hard reset cache to ensure the new prices are loaded automatically
+    if (!localStorage.getItem('dg_initialized_v5')) {
       localStorage.removeItem('dg_products_list');
       localStorage.removeItem('dg_custom_products');
       localStorage.removeItem('dg_stock_store');
       localStorage.removeItem('dg_price_store');
-      localStorage.setItem('dg_initialized_v4', 'true');
+      localStorage.setItem('dg_initialized_v5', 'true');
     }
 
     const defaultProducts = [
@@ -483,14 +483,14 @@
       { id: '2', name: 'Tree', price: 7000, stock: 5, img: '3D_Products/tree.jpg' },
       { id: '3', name: 'Haykalcha', price: 15000, stock: 8, img: '3D_Products/hayklacha.jpg' },
       { id: '4', name: 'Stol', price: 4000, stock: 12, img: '3D_Products/stol.jpg' },
-      { id: '5', name: 'Podstavka Lap', price: 5000, stock: 6, img: '3D_Products/PodstavkaLap.png' },
+      { id: '5', name: 'Podstavka Lap', price: 25000, stock: 6, img: '3D_Products/PodstavkaLap.png' },
       { id: '6', name: 'Kema 2', price: 12000, stock: 3, img: '3D_Products/kema2.jpg' },
-      { id: '7', name: 'Card Holder', price: 6000, stock: 15, img: '3D_Products/CardHolder.png' },
+      { id: '7', name: 'Card Holder', price: 10000, stock: 15, img: '3D_Products/CardHolder.png' },
       { id: '8', name: 'Kema', price: 5000, stock: 7, img: '3D_Products/Kema.jpg' },
       { id: '9', name: 'QR Code', price: 15000, stock: 4, img: '3D_Products/Qr.jpg' },
-      { id: '10', name: 'Souvenir', price: 10000, stock: 10, img: '3D_Products/Souvenir.png' },
-      { id: '11', name: 'Sunglasses', price: 12000, stock: 8, img: '3D_Products/sunglasses.png' },
-      { id: '12', name: 'Playstation Controller stand', price: 15000, stock: 10, img: '3D_Products/PS5_Controller.jpg' }
+      { id: '10', name: 'Souvenir', price: 30000, stock: 10, img: '3D_Products/Souvenir.png' },
+      { id: '11', name: 'Sunglasses', price: 17000, stock: 8, img: '3D_Products/sunglasses.png' },
+      { id: '12', name: 'Playstation Controller stand', price: 25000, stock: 10, img: '3D_Products/PS5_Controller.jpg' }
     ];
 
     let products = JSON.parse(localStorage.getItem('dg_products_list')) || defaultProducts;
