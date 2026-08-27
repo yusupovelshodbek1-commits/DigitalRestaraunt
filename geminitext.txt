@@ -485,21 +485,21 @@
         </div>
       </div>
 
-      <div class="product-card" data-id="5" data-name="podstavka lap" data-stock="6">
+      <div class="product-card" data-id="5" data-name="podstavka" data-stock="0">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
-        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
-        <img src="3D_Products/PodstavkaLap.png" alt="Podstavka Lap">
+        <span class="stock-badge out-of-stock" onclick="toggleBadgeDirectly(this)">Out of Stock</span>
+        <img src="3D_Products/podstavka.jpg" alt="Podstavka">
         <div class="card-body">
-          <h3>Podstavka Lap</h3>
+          <h3>Podstavka</h3>
           <p class="stock-count-info">
-            Omborda: <span class="stock-num">6</span> ta
+            Omborda: <span class="stock-num">0</span> ta
             <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
           </p>
           <div class="card-price-wrapper">
             <p class="card-price" data-price="5000">5,000 UZS</p>
             <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
           </div>
-          <button class="add-btn">Add to Order</button>
+          <button class="add-btn" disabled>Out of Stock</button>
         </div>
       </div>
 
@@ -521,7 +521,25 @@
         </div>
       </div>
 
-      <div class="product-card" data-id="7" data-name="kema" data-stock="7">
+      <div class="product-card" data-id="7" data-name="card" data-stock="15">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
+        <img src="3D_Products/Card.jpg" alt="Card">
+        <div class="card-body">
+          <h3>Card</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">15</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="6000">6,000 UZS</p>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
+          </div>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="8" data-name="kema" data-stock="7">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Kema.jpg" alt="Kema">
@@ -539,7 +557,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-id="8" data-name="qr code" data-stock="4">
+      <div class="product-card" data-id="9" data-name="qr code" data-stock="4">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Qr.jpg" alt="QR Code">
@@ -650,16 +668,19 @@
       }
     }
 
+    // Saqlangan ombor soni va narxlarni tiklash
     function applySavedData() {
       document.querySelectorAll('.product-card').forEach(card => {
         const id = card.getAttribute('data-id');
         
+        // Stock tiklash
         if (stockStore[id] !== undefined) {
           const count = parseInt(stockStore[id]);
           card.setAttribute('data-stock', count);
           card.querySelector('.stock-num').textContent = count;
         }
 
+        // Narx tiklash
         if (priceStore[id] !== undefined) {
           const pr = parseFloat(priceStore[id]);
           card.querySelector('.card-price').setAttribute('data-price', pr);
@@ -670,6 +691,7 @@
       });
     }
 
+    // OMBOR SONINI O'ZGARTIRISH (Faqat stock)
     function editStockOnly(btn) {
       if (!isAdmin) return;
       const card = btn.closest('.product-card');
@@ -692,6 +714,7 @@
       }
     }
 
+    // NARXNI O'ZGARTIRISH (Faqat narx)
     function editPriceOnly(btn) {
       if (!isAdmin) return;
       const card = btn.closest('.product-card');
@@ -714,6 +737,7 @@
       }
     }
 
+    // Badgeni to'g'ridan-to'g'ri bosib holatni o'zgartirish
     function toggleBadgeDirectly(badge) {
       if (!isAdmin) return;
       const card = badge.closest('.product-card');
@@ -787,6 +811,7 @@
       });
     }
 
+    // Admin Auth & Modal Events
     adminAuthBtn.addEventListener('click', () => {
       if (isAdmin) setAdminState(false);
       else loginModal.style.display = 'flex';
