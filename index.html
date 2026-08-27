@@ -469,13 +469,13 @@
   </footer>
 
   <script>
-    // HARD RESET cache key to force new products into user's browser
-    if (!localStorage.getItem('dg_initialized_v3')) {
+    // Hard reset cache to ensure sunglasses fix & new Playstation controller are loaded
+    if (!localStorage.getItem('dg_initialized_v4')) {
       localStorage.removeItem('dg_products_list');
       localStorage.removeItem('dg_custom_products');
       localStorage.removeItem('dg_stock_store');
       localStorage.removeItem('dg_price_store');
-      localStorage.setItem('dg_initialized_v3', 'true');
+      localStorage.setItem('dg_initialized_v4', 'true');
     }
 
     const defaultProducts = [
@@ -489,7 +489,8 @@
       { id: '8', name: 'Kema', price: 5000, stock: 7, img: '3D_Products/Kema.jpg' },
       { id: '9', name: 'QR Code', price: 15000, stock: 4, img: '3D_Products/Qr.jpg' },
       { id: '10', name: 'Souvenir', price: 10000, stock: 10, img: '3D_Products/Souvenir.png' },
-      { id: '11', name: 'Sunglasses', price: 12000, stock: 8, img: '3D_Products/Sunglasses.png' }
+      { id: '11', name: 'Sunglasses', price: 12000, stock: 8, img: '3D_Products/sunglasses.png' },
+      { id: '12', name: 'Playstation Controller stand', price: 15000, stock: 10, img: '3D_Products/PS5_Controller.jpg' }
     ];
 
     let products = JSON.parse(localStorage.getItem('dg_products_list')) || defaultProducts;
