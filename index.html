@@ -556,10 +556,10 @@
             <img src="${prod.img}" alt="${prod.name}" onerror="handleImgError(this)">
             <div class="card-body">
               <h3>${prod.name}</h3>
-              <p class="stock-count-info">
-                Omborda: <span class="stock-num">${prod.stock}</span> ta
-                <button class="edit-btn" onclick="editStock('${prod.id}')">✏️</button>
-              </p>
+             <p class="stock-count-info">
+  Omborda: <span class="stock-num">${prod.stock}</span>${typeof prod.stock === 'number' ? ' ta' : ''}
+  <button class="edit-btn" onclick="editStock('${prod.id}')">✏️</button>
+</p>
               <div class="card-price-wrapper">
                 <p class="card-price">${prod.price.toLocaleString()} UZS</p>
                 <button class="edit-btn" onclick="editPrice('${prod.id}')">✏️</button>
