@@ -120,7 +120,6 @@
       gap: 1.5rem;
     }
 
-    /* Qat'iy 3x3 Grid */
     .product-grid {
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
@@ -488,7 +487,7 @@
       <div class="product-card" data-id="5" data-name="podstavka lap" data-stock="6">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
-        <img src="3D_Products/PodstavkaLap.png" alt="Podstavka Lap">
+        <img src="3D_Products/PodstavkaLap.png" alt="Podstavka Lap" onerror="this.src='3D_Products/PodstavkaLap.jpg'">
         <div class="card-body">
           <h3>Podstavka Lap</h3>
           <p class="stock-count-info">
@@ -521,7 +520,25 @@
         </div>
       </div>
 
-      <div class="product-card" data-id="7" data-name="kema" data-stock="7">
+      <div class="product-card" data-id="7" data-name="card holder" data-stock="15">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
+        <img src="3D_Products/CardHolder.png" alt="Card Holder" onerror="this.src='3D_Products/CardHolder.jpg'">
+        <div class="card-body">
+          <h3>Card Holder</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">15</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="6000">6,000 UZS</p>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
+          </div>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="8" data-name="kema" data-stock="7">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Kema.jpg" alt="Kema">
@@ -539,7 +556,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-id="8" data-name="qr code" data-stock="4">
+      <div class="product-card" data-id="9" data-name="qr code" data-stock="4">
         <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
         <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
         <img src="3D_Products/Qr.jpg" alt="QR Code">
@@ -557,10 +574,45 @@
         </div>
       </div>
 
+      <div class="product-card" data-id="10" data-name="souvenir" data-stock="10">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
+        <img src="3D_Products/Souvenir.png" alt="Souvenir" onerror="this.src='3D_Products/Souvenir.jpg'">
+        <div class="card-body">
+          <h3>Souvenir</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">10</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="10000">10,000 UZS</p>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
+          </div>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-id="11" data-name="sunglasses" data-stock="8">
+        <button class="delete-card-btn" onclick="deleteProduct(this)">&times;</button>
+        <span class="stock-badge in-stock" onclick="toggleBadgeDirectly(this)">In Stock</span>
+        <img src="3D_Products/Sunglasses.png" alt="Sunglasses" onerror="this.src='3D_Products/Sunglasses.jpg'">
+        <div class="card-body">
+          <h3>Sunglasses</h3>
+          <p class="stock-count-info">
+            Omborda: <span class="stock-num">8</span> ta
+            <button class="edit-btn" onclick="editStockOnly(this)">✏️</button>
+          </p>
+          <div class="card-price-wrapper">
+            <p class="card-price" data-price="12000">12,000 UZS</p>
+            <button class="edit-btn" onclick="editPriceOnly(this)">✏️</button>
+          </div>
+          <button class="add-btn">Add to Order</button>
+        </div>
+      </div>
+
     </div>
   </main>
 
-  <!-- MODALLAR -->
   <div class="modal" id="loginModal">
     <div class="modal-content">
       <h3>Admin Kirish</h3>
